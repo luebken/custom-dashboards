@@ -1,4 +1,4 @@
-const request = require('request');
+const fetch = require('node-fetch');
 
 const api_token = process.env.INSTANA_API_TOKEN
 if (process.argv.length != 3 || !api_token) {
@@ -7,20 +7,19 @@ if (process.argv.length != 3 || !api_token) {
 }
 const api_url = process.argv[2]
 
-function buildRequestOptions() {
-    const body = {
-        "id": "vckk-dYcRU6z04QP37F8cQ",
-        "title": "Test matthias",
-        "accessRules": [
-          {
-            "accessType": "WRITE",
+const body = {
+    "id": "vckk-dYcRU6z04QP37F8cQA",
+    "title": "Test matthias",
+    "accessRules": [
+        {
+            "accessType": "READ_WRITE",
             "relationType": "USER",
             "relatedId": "5ee8a3e8cd70020001ecb007"
-          }
-        ],
-        "widgets": [
-          {
-            "id": "uzmv5wyiJOAlrP8v",
+        }
+    ],
+    "widgets": [
+        {
+            "id": "uzmv5wyiJOAlrP8vA",
             "title": "test",
             "width": 1,
             "height": 1,
@@ -28,43 +27,20 @@ function buildRequestOptions() {
             "y": 0,
             "type": "markdown",
             "config": "test"
-          }
-        ],
-        "writable": true
-      }
-
-
-
-    const options = {
-        url: api_url + 'custom-dashboard',
-        headers: {
-            'authorization': 'apiToken ' + api_token,
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    };
-    return options
+        }
+    ],
+    "writable": true
 }
 
 
-const options = buildRequestOptions()
-
 console.log("Post")
-request.post(options, function (error, response, body) {
-    if (error) console.error('error:', error);
-    if (response.statusCode != 200) {
-        console.debug('StatusCode:', response && response.statusCode);
-        console.debug('Body:', body);
-        return
-    }
-    var body = JSON.parse(body)
-    if (!body.data || !body.data.items) {
-        console.error("Unexpected result: ", body)
-        return
-    }
-
-    console.log(body)
-});
-
-
-
+fetch(api_url + 'custom-dashboard', {
+    method: 'post',
+    body: JSON.stringify(body),
+    headers: {
+        'authorization': 'apiToken ' + api_token,
+        'content-type': 'application/json'
+    },
+})
+    .then(res => res.json())
+    .then(json => console.log(json));
