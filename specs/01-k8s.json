@@ -17,6 +17,99 @@
             "y": 0,
             "type": "markdown",
             "config": "Test markdown:"
+        },
+        {
+            "id": "random-id-0000002",
+            "title": "Docker CPU (namespace=robot-shop)",
+            "width": 6,
+            "height": 13,
+            "x": 0,
+            "y": 6,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": [
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "robot-shop",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MEAN",
+                            "label": "Mean",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "robot-shop",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P90",
+                            "label": "P90",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "robot-shop",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P95",
+                            "label": "P95",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "robot-shop",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P99",
+                            "label": "P99",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "robot-shop",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MAX",
+                            "label": "Max",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
         }
     ]
 }
