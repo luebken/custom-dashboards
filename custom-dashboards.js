@@ -18,7 +18,6 @@ fs.readdir(spec_dir, (err, files) => {
         let rawdata = fs.readFileSync(spec_dir + file);
 
         let json = replaceAndParseJson(rawdata.toString(), kubernetes_namespace_name, url)
-        console.log(json)
         console.log("Creating dashboard defined in " + file);
         (async () => {
             const response = await fetch(`${url}/api/custom-dashboard`, {
