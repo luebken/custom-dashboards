@@ -1,5 +1,5 @@
 {
-    "_meta" : "Variables: $KUBERNETES_NAMESPACE_NAME, $INSTANA_URL",
+    "_meta": "Variables: $KUBERNETES_NAMESPACE_NAME, $INSTANA_URL",
     "title": "Demo Dashboard for Kubernetes Namespace $KUBERNETES_NAMESPACE_NAME",
     "accessRules": [
         {
@@ -8,16 +8,16 @@
             "relatedId": "5ee8a3e8cd70020001ecb007"
         },
         {
-          "accessType": "READ",
-          "relationType": "GLOBAL",
-          "relatedId": ""
+            "accessType": "READ",
+            "relationType": "GLOBAL",
+            "relatedId": ""
         }
     ],
     "widgets": [
         {
             "id": "random-id-0000001",
             "title": "K8s $KUBERNETES_NAMESPACE_NAME",
-            "width": 4,
+            "width": 12,
             "height": 6,
             "x": 0,
             "y": 0,
@@ -26,7 +26,7 @@
         },
         {
             "id": "random-id-0000002",
-            "title": "Docker CPU",
+            "title": "Overall Docker CPU Usage for $KUBERNETES_NAMESPACE_NAME",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -104,6 +104,99 @@
                             "timeShift": 0,
                             "aggregation": "MAX",
                             "label": "Max",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
+        },
+        {
+            "id": "xLRisSrxJYVX0cqI",
+            "title": "Docker CPU Usage for Apps (label=app)",
+            "width": 6,
+            "height": 13,
+            "x": 6,
+            "y": 6,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": [
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MEAN",
+                            "label": "Mean",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P90",
+                            "label": "P90",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P95",
+                            "label": "P95",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P99",
+                            "label": "P99",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P99_99",
+                            "label": "P99.99",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "docker"
                         }
