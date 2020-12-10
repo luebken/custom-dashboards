@@ -278,8 +278,6 @@
                 "y1": {
                     "formatter": "number.detailed",
                     "renderer": "stackedBar",
-                    "min": 1,
-                    "max": 1,
                     "metrics": [
                         {
                             "metric": "cpuRequests",
@@ -290,7 +288,7 @@
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
-                            "aggregation": "MAX",
+                            "aggregation": "SUM",
                             "label": "CPU Requests",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "kubernetesPod"
@@ -304,7 +302,7 @@
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
-                            "aggregation": "MAX",
+                            "aggregation": "SUM",
                             "label": "CPU Limits",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "kubernetesPod"
@@ -331,8 +329,6 @@
                 "y1": {
                     "formatter": "number.detailed",
                     "renderer": "stackedBar",
-                    "min": 1,
-                    "max": 1,
                     "metrics": [
                         {
                             "metric": "cpuRequests",
@@ -343,7 +339,7 @@
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
-                            "aggregation": "MAX",
+                            "aggregation": "SUM",
                             "label": "CPU Requests",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "kubernetesPod"
@@ -357,7 +353,351 @@
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
+                            "aggregation": "SUM",
+                            "label": "CPU Limits",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "kubernetesPod"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
+        },
+        {
+            "id": "random-id-0000006",
+            "title": "Docker CPU Throttling for $KUBERNETES_NAMESPACE_NAME",
+            "width": 6,
+            "height": 13,
+            "x": 0,
+            "y": 32,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": [
+                        {
+                            "metric": "cpu.throttling_count",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MEAN",
+                            "label": "Mean",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.throttling_count",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P75",
+                            "label": "P75",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.throttling_count",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P90",
+                            "label": "P90",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.throttling_count",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P95",
+                            "label": "P95",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.throttling_count",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P98",
+                            "label": "P98",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.throttling_count",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P99",
+                            "label": "P99",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.throttling_count",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
                             "aggregation": "MAX",
+                            "label": "Max",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
+        },
+        {
+            "id": "random-id-0000007",
+            "width": 6,
+            "height": 13,
+            "x": 6,
+            "y": 32,
+            "title": "Docker CPU Throttling for Apps",
+            "type": "chart",
+            "config": {
+                "type": "TIME_SERIES",
+                "y1": {
+                    "formatter": "number.compact",
+                    "renderer": "line",
+                    "metrics": [
+                        {
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "metric": "cpu.throttling_count",
+                            "aggregation": "MEAN",
+                            "timeShift": 0,
+                            "label": "Mean",
+                            "tagFilterExpression": {
+                                "type": "TAG_FILTER",
+                                "name": "kubernetes.pod.label",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "type": "docker"
+                        },
+                        {
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "metric": "cpu.throttling_count",
+                            "aggregation": "P75",
+                            "timeShift": 0,
+                            "label": "P75",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "type": "docker"
+                        },
+                        {
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "metric": "cpu.throttling_count",
+                            "aggregation": "P90",
+                            "timeShift": 0,
+                            "label": "P90",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "type": "docker"
+                        },
+                        {
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "metric": "cpu.throttling_count",
+                            "aggregation": "P95",
+                            "timeShift": 0,
+                            "label": "P95",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "type": "docker"
+                        },
+                        {
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "metric": "cpu.throttling_count",
+                            "aggregation": "P98",
+                            "timeShift": 0,
+                            "label": "P98",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "type": "docker"
+                        },
+                        {
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "metric": "cpu.throttling_count",
+                            "aggregation": "P99",
+                            "timeShift": 0,
+                            "label": "P99",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "type": "docker"
+                        },
+                        {
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "metric": "cpu.throttling_count",
+                            "aggregation": "MAX",
+                            "timeShift": 0,
+                            "label": "Max",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "type": "docker"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                }
+            }
+        },
+        {
+            "id": "random-id-0000008",
+            "title": "Pod Memory Requests & Limits in namespace $KUBERNETES_NAMESPACE_NAME",
+            "width": 6,
+            "height": 13,
+            "x": 0,
+            "y": 45,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.compact",
+                    "renderer": "stackedBar",
+                    "metrics": [
+                        {
+                            "metric": "memoryRequests",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "SUM",
+                            "label": "Memory Requests",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "kubernetesPod"
+                        },
+                        {
+                            "metric": "memory.limit",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "SUM",
+                            "label": "Memory Limits",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
+        },
+        {
+            "id": "random-id-0000009",
+            "title": "Pod Memory Requests & Limits of Apps",
+            "width": 6,
+            "height": 13,
+            "x": 6,
+            "y": 45,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.compact",
+                    "renderer": "stackedBar",
+                    "metrics": [
+                        {
+                            "metric": "memoryRequests",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "SUM",
+                            "label": "CPU Memory",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "kubernetesPod"
+                        },
+                        {
+                            "metric": "memoryLimits",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "SUM",
                             "label": "CPU Limits",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "kubernetesPod"
