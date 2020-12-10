@@ -1,23 +1,28 @@
 {
-    "_meta" : "Variables: $kubernetes_namespace_name",
-    "title": "Test Matthias Generated Dashboard 1",
+    "_meta" : "Variables: $KUBERNETES_NAMESPACE_NAME, $INSTANA_URL",
+    "title": "Demo Dashboard for Kubernetes Namespace $KUBERNETES_NAMESPACE_NAME",
     "accessRules": [
         {
             "accessType": "READ_WRITE",
             "relationType": "USER",
             "relatedId": "5ee8a3e8cd70020001ecb007"
+        },
+        {
+          "accessType": "READ",
+          "relationType": "GLOBAL",
+          "relatedId": ""
         }
     ],
     "widgets": [
         {
             "id": "random-id-0000001",
-            "title": "Test Widget Title",
-            "width": 1,
-            "height": 1,
+            "title": "K8s $KUBERNETES_NAMESPACE_NAME",
+            "width": 4,
+            "height": 6,
             "x": 0,
             "y": 0,
             "type": "markdown",
-            "config": "markdown for $kubernetes_namespace_name"
+            "config": "[Hosts Map]($INSTANA_URL/#/physical?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) – [Analyze Calls]($INSTANA_URL/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~$KUBERNETES_NAMESPACE_NAME~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---\n(Focus on a specific K8s namespace. e.g. namespace=$KUBERNETES_NAMESPACE_NAME)"
         },
         {
             "id": "random-id-0000002",
@@ -37,7 +42,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$kubernetes_namespace_name",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -51,7 +56,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$kubernetes_namespace_name",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -65,7 +70,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$kubernetes_namespace_name",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -79,7 +84,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$kubernetes_namespace_name",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -93,7 +98,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$kubernetes_namespace_name",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
