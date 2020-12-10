@@ -711,6 +711,248 @@
                 },
                 "type": "TIME_SERIES"
             }
+        },
+        {
+            "id": "random-id-0000010",
+            "title": "Docker Memory Usage for $KUBERNETES_NAMESPACE_NAME",
+            "width": 6,
+            "height": 13,
+            "x": 0,
+            "y": 59,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": [
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MEAN",
+                            "label": "Mean",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P75",
+                            "label": "P75",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P90",
+                            "label": "P90",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P95",
+                            "label": "P95",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P98",
+                            "label": "P98",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P99",
+                            "label": "P99",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MAX",
+                            "label": "Max",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
+        },
+        {
+            "id": "random-id-0000011",
+            "title": "Docker Memory Usage of Apps",
+            "width": 6,
+            "height": 13,
+            "x": 6,
+            "y": 59,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": [
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MEAN",
+                            "label": "Mean",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P75",
+                            "label": "P75",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P90",
+                            "label": "P90",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P95",
+                            "label": "P95",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P98",
+                            "label": "P98",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P99",
+                            "label": "P99",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "memory.usage",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MAX",
+                            "label": "Max",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
         }
     ]
 }
