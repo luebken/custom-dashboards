@@ -1,4 +1,5 @@
 {
+    "_meta" : "Variables: $kubernetes_namespace_name",
     "title": "Test Matthias Generated Dashboard 1",
     "accessRules": [
         {
@@ -16,11 +17,11 @@
             "x": 0,
             "y": 0,
             "type": "markdown",
-            "config": "Test markdown:"
+            "config": "markdown for $kubernetes_namespace_name"
         },
         {
             "id": "random-id-0000002",
-            "title": "Docker CPU (namespace=robot-shop)",
+            "title": "Docker CPU",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -36,7 +37,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "robot-shop",
+                                "value": "$kubernetes_namespace_name",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -50,7 +51,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "robot-shop",
+                                "value": "$kubernetes_namespace_name",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -64,7 +65,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "robot-shop",
+                                "value": "$kubernetes_namespace_name",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -78,7 +79,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "robot-shop",
+                                "value": "$kubernetes_namespace_name",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -92,7 +93,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "robot-shop",
+                                "value": "$kubernetes_namespace_name",
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,

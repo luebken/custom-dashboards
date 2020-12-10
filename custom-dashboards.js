@@ -16,7 +16,10 @@ const url = process.argv[2];
 fs.readdir(spec_dir, (err, files) => {
     files.forEach(file => {
         let rawdata = fs.readFileSync(spec_dir + file);
-        let json = JSON.parse(rawdata);
+
+        var kubernetes_namespace_name = "robot-shop"
+        let json = replaceAndParseJson(rawdata.toString(), kubernetes_namespace_name)
+        console.log(json)
         console.log("Creating dashboard defined in " + file);
         (async () => {
             const response = await fetch(`${url}/api/custom-dashboard`, {
@@ -34,5 +37,15 @@ fs.readdir(spec_dir, (err, files) => {
         })().catch(e => console.error('Error', e));
     });
 });
+
+// dummy jsonnet parser
+// removes replaces kubernetes_namespace_name
+// TODO read in variables from the json file
+function replaceAndParseJson(jsonTemplate, kubernetes_namespace_name) {
+    //var result = jsonTemplate.toString().replace(/local .*\n/g, '');
+    //result = jsonTemplate.toString().replace(/\/\/.*\n/g, '');
+    var result = jsonTemplate.toString().replace(/\$kubernetes_namespace_name/g, kubernetes_namespace_name);
+    return JSON.parse(result)
+}
 
 
