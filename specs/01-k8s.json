@@ -1,6 +1,6 @@
 {
     "_meta": "Variables: $KUBERNETES_NAMESPACE_NAME, $INSTANA_URL",
-    "title": "Demo Dashboard for Kubernetes Namespace $KUBERNETES_NAMESPACE_NAME",
+    "title": "Demo Dashboard K8s ($KUBERNETES_NAMESPACE_NAME)",
     "accessRules": [
         {
             "accessType": "READ_WRITE",
@@ -118,8 +118,8 @@
             }
         },
         {
-            "id": "xLRisSrxJYVX0cqI",
-            "title": "Docker CPU Usage for Apps (label=app)",
+            "id": "random-id-0000003",
+            "title": "Docker CPU Usage for Apps (label app=)",
             "width": 6,
             "height": 13,
             "x": 6,
@@ -199,6 +199,112 @@
                             "label": "P99.99",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "docker"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
+        },
+        {
+            "id": "random-id-0000004",
+            "title": "Pod CPU Requests & Limits (namespace=$KUBERNETES_NAMESPACE_NAME)",
+            "width": 6,
+            "height": 13,
+            "x": 0,
+            "y": 19,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.detailed",
+                    "renderer": "stackedBar",
+                    "min": 1,
+                    "max": 1,
+                    "metrics": [
+                        {
+                            "metric": "cpuRequests",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MAX",
+                            "label": "CPU Requests",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "kubernetesPod"
+                        },
+                        {
+                            "metric": "cpuLimits",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.namespace.name",
+                                "type": "TAG_FILTER",
+                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "operator": "EQUALS"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MAX",
+                            "label": "CPU Limits",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "kubernetesPod"
+                        }
+                    ]
+                },
+                "y2": {
+                    "formatter": "number.detailed",
+                    "renderer": "line",
+                    "metrics": []
+                },
+                "type": "TIME_SERIES"
+            }
+        },
+        {
+            "id": "random-id-0000005",
+            "title": "Pod CPU Requests & Limits (label: app=)",
+            "width": 6,
+            "height": 13,
+            "x": 6,
+            "y": 19,
+            "type": "chart",
+            "config": {
+                "y1": {
+                    "formatter": "number.detailed",
+                    "renderer": "stackedBar",
+                    "min": 1,
+                    "max": 1,
+                    "metrics": [
+                        {
+                            "metric": "cpuRequests",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MAX",
+                            "label": "CPU Requests",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "kubernetesPod"
+                        },
+                        {
+                            "metric": "cpuLimits",
+                            "tagFilterExpression": {
+                                "name": "kubernetes.pod.label",
+                                "type": "TAG_FILTER",
+                                "value": "app",
+                                "operator": "STARTS_WITH"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MAX",
+                            "label": "CPU Limits",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "kubernetesPod"
                         }
                     ]
                 },
