@@ -1,11 +1,16 @@
 {
-    "_meta": "Variables: $KUBERNETES_NAMESPACE_NAME, $INSTANA_URL",
+    "_meta": {
+        "_comment": "Variables that will be replaced.",
+        "var1": "$KUBERNETES_NAMESPACE_NAME",
+        "var2": "$INSTANA_URL",
+        "var3": "$USER_ID"
+    },
     "title": "Demo / Kubernetes / Namespace: $KUBERNETES_NAMESPACE_NAME",
     "accessRules": [
         {
             "accessType": "READ_WRITE",
             "relationType": "USER",
-            "relatedId": "5ee8a3e8cd70020001ecb007"
+            "relatedId": "$INSTANA_USER_ID"
         },
         {
             "accessType": "READ",

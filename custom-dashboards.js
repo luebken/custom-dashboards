@@ -1,13 +1,13 @@
 const fetch = require('node-fetch');
-
 const fs = require('fs');
-
 
 const spec_dir = "./specs/";
 
 const apiToken = process.env.INSTANA_API_TOKEN;
-if (process.argv.length != 4 || !apiToken) {
-    console.error('Usage: INSTANA_API_TOKEN=<INSTANA_API_TOKEN> node custom-dashboards.js <INSTANA_URL> <KUBERNETES_NAMESPACE_NAME>');
+const user_id = process.env.INSTANA_USER_ID;
+if (process.argv.length != 4 || !apiToken || !user_id) {
+    console.error('Usage: node custom-dashboards.js <INSTANA_URL> <KUBERNETES_NAMESPACE_NAME>');
+    console.error('also envs INSTANA_API_TOKEN and INSTANA_USER_ID need to be set');
     return;
 }
 const url = process.argv[2];
@@ -17,7 +17,7 @@ fs.readdir(spec_dir, (err, files) => {
     files.forEach(file => {
         let rawdata = fs.readFileSync(spec_dir + file);
 
-        let json = replaceAndParseJson(rawdata.toString(), kubernetes_namespace_name, url)
+        let json = replaceAndParseJson(rawdata.toString(), kubernetes_namespace_name, url, user_id)
         console.log("Creating dashboard defined in " + file);
         (async () => {
             const response = await fetch(`${url}/api/custom-dashboard`, {
@@ -36,14 +36,14 @@ fs.readdir(spec_dir, (err, files) => {
     });
 });
 
-// dummy jsonnet parser
-// removes replaces KUBERNETES_NAMESPACE_NAME
-// TODO read in variables from the json file
-function replaceAndParseJson(jsonTemplate, kubernetes_namespace_name, url) {
+// Poormans templating. Removes replaces $-Variables with specified values.
+// TODO read availble variables from the json file
+function replaceAndParseJson(jsonTemplate, kubernetes_namespace_name, url, user_id) {
     //var result = jsonTemplate.toString().replace(/local .*\n/g, '');
     //result = jsonTemplate.toString().replace(/\/\/.*\n/g, '');
     var result = jsonTemplate.toString().replace(/\$KUBERNETES_NAMESPACE_NAME/g, kubernetes_namespace_name);
     result = result.replace(/\$INSTANA_URL/g, url);
+    result = result.replace(/\$INSTANA_USER_ID/g, user_id);
     return JSON.parse(result)
 }
 
