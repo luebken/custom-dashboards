@@ -7,4 +7,4 @@ To get it running you need:
 * A Instana API token which is allowed to create custom dashboards and set it as env=INSTANA_API_TOKEN
  
 To run it: 
-    node custom-dashboards.js <INSTANA_URL> <KUBERNETES_NAMESPACE_NAME>
+    node custom-dashboards.js <INSTANA_URL> <KUBERNETES_NAMESPACE_NAME> <KUBERNETES_POD_LABEL> 
