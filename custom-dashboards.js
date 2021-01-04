@@ -16,6 +16,8 @@ const kubernetes_pod_label = process.argv[4];
 
 fs.readdir(spec_dir, (err, files) => {
     files.forEach(file => {
+        const isJsonExt = file.substr(file.lastIndexOf(".")) == ".json"
+        if (isJsonExt) {
         let rawdata = fs.readFileSync(spec_dir + file);
 
         let json = replaceAndParseJson(rawdata.toString(), kubernetes_namespace_name, kubernetes_pod_label, url, user_id)
@@ -35,6 +37,7 @@ fs.readdir(spec_dir, (err, files) => {
             const responseBody = await response.text();
             console.log('Response body:', responseBody);
         })().catch(e => console.error('Error', e));
+        }
     });
 });
 
