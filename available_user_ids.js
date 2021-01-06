@@ -3,15 +3,17 @@ const fetch = require('node-fetch');
 // Small script which lists all available user_ids 
 
 const apiToken = process.env.INSTANA_API_TOKEN;
-if (process.argv.length != 3 || !apiToken) {
-    console.error('Usage: node available_user_ids.js <INSTANA_URL>');
-    console.error('also ENV INSTANA_API_TOKEN need to be set');
+const baseUrl = process.env.INSTANA_BASE_URL;
+if (process.argv.length != 2 || !apiToken || !baseUrl) {
+    console.error('Usage: node available_user_ids.js');
+    console.error('ENVs INSTANA_API_TOKEN & INSTANA_BASE_URL need to be set');
     return;
 }
-const url = process.argv[2];
 
 (async () => {
-    const response = await fetch(`${url}/api/custom-dashboard/shareable-users`, {
+    const apiEndpoint = `${baseUrl}/api/custom-dashboard/shareable-users`
+    console.log("Quering endpoint:", apiEndpoint)
+    const response = await fetch(apiEndpoint, {
         method: 'GET',
         headers: {
             authorization: `apiToken ${apiToken}`,
