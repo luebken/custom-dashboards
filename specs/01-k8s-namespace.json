@@ -27,7 +27,7 @@
             "x": 0,
             "y": 0,
             "type": "markdown",
-            "config": "This is a demonstration dashboard to highlight some of the Kubernetes metrics.\n\nLinks:\n[Hosts Map]($INSTANA_URL/#/physical?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) - [Container Map]($INSTANA_URL/#/container?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) – [Analyze Calls]($INSTANA_URL/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~$KUBERNETES_NAMESPACE_NAME~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---"
+            "config": "This is a demo dashboard to highlight custom dashboards for Kubernetes namespaces. The original definition of the dashboard is: [01-k8s-namespace.json](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s.json)\n\nLinks:\n[Hosts Map]($INSTANA_URL/#/physical?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) - [Container Map]($INSTANA_URL/#/container?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) – [Analyze Calls]($INSTANA_URL/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~$KUBERNETES_NAMESPACE_NAME~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---"
         },
         {
             "id": "random-id-0000002",
