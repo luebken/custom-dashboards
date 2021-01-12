@@ -2,10 +2,11 @@
     "_meta": {
         "_comment": "Variables that will be replaced.",
         "var1": "$KUBERNETES_NAMESPACE_NAME",
-        "var2": "$INSTANA_URL",
-        "var3": "$USER_ID"
+        "var2": "$KUBERNETES_POD_LABEL",
+        "var3": "$INSTANA_URL",
+        "var4": "$USER_ID"
     },
-    "title": "Demo / Kubernetes / Namespace: $KUBERNETES_NAMESPACE_NAME",
+    "title": "Demo / Kubernetes / Namespace 2: $KUBERNETES_NAMESPACE_NAME",
     "accessRules": [
         {
             "accessType": "READ_WRITE",
@@ -27,11 +28,11 @@
             "x": 0,
             "y": 0,
             "type": "markdown",
-            "config": "This is a demo dashboard to highlight custom dashboards for Kubernetes namespaces. The original definition of the dashboard is: [01-k8s-namespace.json](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s-namespace.json)\n\nLinks:\n[Hosts Map]($INSTANA_URL/#/physical?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) - [Container Map]($INSTANA_URL/#/container?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) – [Analyze Calls]($INSTANA_URL/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~$KUBERNETES_NAMESPACE_NAME~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---"
+            "config": "This is a demo dashboard to highlight custom dashboards for a Kubernete namespace. The original definition of the dashboard is: [01-k8s-namespace.json](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s-namespace.json)\n\nLinks:\n[Hosts Map]($INSTANA_URL/#/physical?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) - [Container Map]($INSTANA_URL/#/container?q=entity.kubernetes.namespace%3A$KUBERNETES_NAMESPACE_NAME) – [Analyze Calls]($INSTANA_URL/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~$KUBERNETES_NAMESPACE_NAME~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---"
         },
         {
             "id": "random-id-0000002",
-            "title": "Docker CPU Usage for $KUBERNETES_NAMESPACE_NAME",
+            "title": "Docker CPU Usage",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -152,7 +153,7 @@
         },
         {
             "id": "random-id-0000003",
-            "title": "Docker CPU Usage for Apps",
+            "title": "Docker CPU Usage for Label: $KUBERNETES_POD_LABEL",
             "width": 6,
             "height": 13,
             "x": 6,
@@ -164,11 +165,10 @@
                     "renderer": "line",
                     "metrics": [
                         {
-                            "metric": "cpu.total_usage",
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -182,7 +182,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -196,7 +196,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -210,7 +210,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -224,7 +224,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -238,7 +238,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -252,7 +252,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -273,7 +273,7 @@
         },
         {
             "id": "random-id-0000004",
-            "title": "Pod CPU Requests & Limits in namespace $KUBERNETES_NAMESPACE_NAME",
+            "title": "Pod CPU Requests & Limits",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -324,7 +324,7 @@
         },
         {
             "id": "random-id-0000005",
-            "title": "Pod CPU Requests & Limits of Apps",
+            "title": "Pod CPU Requests & Limits for label: $KUBERNETES_POD_LABEL",
             "width": 6,
             "height": 13,
             "x": 6,
@@ -340,7 +340,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -354,7 +354,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -375,7 +375,7 @@
         },
         {
             "id": "random-id-0000006",
-            "title": "Docker CPU Throttling for $KUBERNETES_NAMESPACE_NAME",
+            "title": "Docker CPU Throttling",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -500,7 +500,7 @@
             "height": 13,
             "x": 6,
             "y": 32,
-            "title": "Docker CPU Throttling for Apps",
+            "title": "Docker CPU Throttling for Label: $KUBERNETES_POD_LABEL",
             "type": "chart",
             "config": {
                 "type": "TIME_SERIES",
@@ -517,7 +517,7 @@
                             "tagFilterExpression": {
                                 "type": "TAG_FILTER",
                                 "name": "kubernetes.pod.label",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "type": "docker"
@@ -531,7 +531,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "type": "docker"
@@ -545,7 +545,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "type": "docker"
@@ -559,7 +559,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "type": "docker"
@@ -573,7 +573,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "type": "docker"
@@ -587,7 +587,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "type": "docker"
@@ -601,7 +601,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "type": "docker"
@@ -617,7 +617,7 @@
         },
         {
             "id": "random-id-0000008",
-            "title": "Pod Memory Requests & Limits in namespace $KUBERNETES_NAMESPACE_NAME",
+            "title": "Pod Memory Requests & Limits",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -668,7 +668,7 @@
         },
         {
             "id": "random-id-0000009",
-            "title": "Pod Memory Requests & Limits of Apps",
+            "title": "Pod Memory Requests & Limits for label: $KUBERNETES_POD_LABEL",
             "width": 6,
             "height": 13,
             "x": 6,
@@ -684,7 +684,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -698,7 +698,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -719,7 +719,7 @@
         },
         {
             "id": "random-id-0000010",
-            "title": "Docker Memory Usage for $KUBERNETES_NAMESPACE_NAME",
+            "title": "Docker Memory Usage",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -840,7 +840,7 @@
         },
         {
             "id": "random-id-0000011",
-            "title": "Docker Memory Usage of Apps",
+            "title": "Docker Memory Usage for label: $KUBERNETES_POD_LABEL",
             "width": 6,
             "height": 13,
             "x": 6,
@@ -856,7 +856,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -870,7 +870,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -884,7 +884,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -898,7 +898,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -912,7 +912,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -926,7 +926,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
@@ -940,7 +940,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.pod.label",
                                 "type": "TAG_FILTER",
-                                "value": "app",
+                                "value": "$KUBERNETES_POD_LABEL",
                                 "operator": "STARTS_WITH"
                             },
                             "timeShift": 0,
