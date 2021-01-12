@@ -614,7 +614,7 @@
             "config": {
                 "type": "TIME_SERIES",
                 "y1": {
-                    "formatter": "number.compact",
+                    "formatter": "number.detailed",
                     "renderer": "line",
                     "metrics": [
                         {
