@@ -32,7 +32,7 @@
         },
         {
             "id": "random-id-0000002",
-            "title": "Docker CPU Usage",
+            "title": "Docker CPU Usage (Total)",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -184,165 +184,21 @@
                                 ],
                                 "type": "EXPRESSION"
                             },
+                            "grouping": [
+                                {
+                                    "maxResults": 5,
+                                    "by": {
+                                        "groupbyTag": "kubernetes.pod.label",
+                                        "groupbyTagEntity": "NOT_APPLICABLE",
+                                        "groupbyTagSecondLevelKey": ""
+                                    },
+                                    "includeOthers": true,
+                                    "direction": "DESC"
+                                }
+                            ],
                             "timeShift": 0,
                             "aggregation": "MEAN",
                             "label": "Mean",
-                            "source": "INFRASTRUCTURE_METRICS",
-                            "type": "docker"
-                        },
-                        {
-                            "metric": "cpu.total_usage",
-                            "tagFilterExpression": {
-                                "logicalOperator": "AND",
-                                "elements": [
-                                    {
-                                        "name": "kubernetes.pod.label",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_POD_LABEL",
-                                        "operator": "STARTS_WITH"
-                                    },
-                                    {
-                                        "name": "kubernetes.namespace.name",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
-                                        "operator": "EQUALS"
-                                    }
-                                ],
-                                "type": "EXPRESSION"
-                            },
-                            "timeShift": 0,
-                            "aggregation": "P75",
-                            "label": "P75",
-                            "source": "INFRASTRUCTURE_METRICS",
-                            "type": "docker"
-                        },
-                        {
-                            "metric": "cpu.total_usage",
-                            "tagFilterExpression": {
-                                "logicalOperator": "AND",
-                                "elements": [
-                                    {
-                                        "name": "kubernetes.pod.label",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_POD_LABEL",
-                                        "operator": "STARTS_WITH"
-                                    },
-                                    {
-                                        "name": "kubernetes.namespace.name",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
-                                        "operator": "EQUALS"
-                                    }
-                                ],
-                                "type": "EXPRESSION"
-                            },
-                            "timeShift": 0,
-                            "aggregation": "P90",
-                            "label": "P90",
-                            "source": "INFRASTRUCTURE_METRICS",
-                            "type": "docker"
-                        },
-                        {
-                            "metric": "cpu.total_usage",
-                            "tagFilterExpression": {
-                                "logicalOperator": "AND",
-                                "elements": [
-                                    {
-                                        "name": "kubernetes.pod.label",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_POD_LABEL",
-                                        "operator": "STARTS_WITH"
-                                    },
-                                    {
-                                        "name": "kubernetes.namespace.name",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
-                                        "operator": "EQUALS"
-                                    }
-                                ],
-                                "type": "EXPRESSION"
-                            },
-                            "timeShift": 0,
-                            "aggregation": "P95",
-                            "label": "P95",
-                            "source": "INFRASTRUCTURE_METRICS",
-                            "type": "docker"
-                        },
-                        {
-                            "metric": "cpu.total_usage",
-                            "tagFilterExpression": {
-                                "logicalOperator": "AND",
-                                "elements": [
-                                    {
-                                        "name": "kubernetes.pod.label",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_POD_LABEL",
-                                        "operator": "STARTS_WITH"
-                                    },
-                                    {
-                                        "name": "kubernetes.namespace.name",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
-                                        "operator": "EQUALS"
-                                    }
-                                ],
-                                "type": "EXPRESSION"
-                            },
-                            "timeShift": 0,
-                            "aggregation": "P98",
-                            "label": "P98",
-                            "source": "INFRASTRUCTURE_METRICS",
-                            "type": "docker"
-                        },
-                        {
-                            "metric": "cpu.total_usage",
-                            "tagFilterExpression": {
-                                "logicalOperator": "AND",
-                                "elements": [
-                                    {
-                                        "name": "kubernetes.pod.label",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_POD_LABEL",
-                                        "operator": "STARTS_WITH"
-                                    },
-                                    {
-                                        "name": "kubernetes.namespace.name",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
-                                        "operator": "EQUALS"
-                                    }
-                                ],
-                                "type": "EXPRESSION"
-                            },
-                            "timeShift": 0,
-                            "aggregation": "P99",
-                            "label": "P99",
-                            "source": "INFRASTRUCTURE_METRICS",
-                            "type": "docker"
-                        },
-                        {
-                            "metric": "cpu.total_usage",
-                            "tagFilterExpression": {
-                                "logicalOperator": "AND",
-                                "elements": [
-                                    {
-                                        "name": "kubernetes.pod.label",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_POD_LABEL",
-                                        "operator": "STARTS_WITH"
-                                    },
-                                    {
-                                        "name": "kubernetes.namespace.name",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
-                                        "operator": "EQUALS"
-                                    }
-                                ],
-                                "type": "EXPRESSION"
-                            },
-                            "timeShift": 0,
-                            "aggregation": "MAX",
-                            "label": "Max",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "docker"
                         }
@@ -358,7 +214,7 @@
         },
         {
             "id": "random-id-0000004",
-            "title": "Pod CPU Requests & Limits",
+            "title": "Pod CPU Requests & Limits (Total)",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -409,7 +265,7 @@
         },
         {
             "id": "random-id-0000005",
-            "title": "Pod CPU Requests & Limits (\"$KUBERNETES_POD_LABEL\")",
+            "title": "Pod CPU Requests (\"$KUBERNETES_POD_LABEL\")",
             "width": 6,
             "height": 13,
             "x": 6,
@@ -440,35 +296,21 @@
                                 ],
                                 "type": "EXPRESSION"
                             },
+                            "grouping": [
+                                {
+                                    "maxResults": 10,
+                                    "by": {
+                                        "groupbyTag": "kubernetes.pod.label",
+                                        "groupbyTagEntity": "NOT_APPLICABLE",
+                                        "groupbyTagSecondLevelKey": ""
+                                    },
+                                    "includeOthers": true,
+                                    "direction": "DESC"
+                                }
+                            ],
                             "timeShift": 0,
                             "aggregation": "SUM",
                             "label": "CPU Requests",
-                            "source": "INFRASTRUCTURE_METRICS",
-                            "type": "kubernetesPod"
-                        },
-                        {
-                            "metric": "cpuLimits",
-                            "tagFilterExpression": {
-                                "logicalOperator": "AND",
-                                "elements": [
-                                    {
-                                        "name": "kubernetes.pod.label",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_POD_LABEL",
-                                        "operator": "STARTS_WITH"
-                                    },
-                                    {
-                                        "name": "kubernetes.namespace.name",
-                                        "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
-                                        "operator": "EQUALS"
-                                    }
-                                ],
-                                "type": "EXPRESSION"
-                            },
-                            "timeShift": 0,
-                            "aggregation": "SUM",
-                            "label": "CPU Limits",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "kubernetesPod"
                         }
