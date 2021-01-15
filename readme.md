@@ -20,6 +20,6 @@ Finally to create a dashboard you need to aquire a `user_id` which is set as the
 
 ## Install K8s Dashboards
 
-The sample Dashboards are defined in the [specs](specs) folder. To install all dashboards you currently need to provide a K8s namespace and a K8s pod label. eg.: 
+The sample Dashboards are defined in the [specs](specs) folder. See the respect `_config+` section to configure
  
-    node custom-dashboards.js robot-shop app=catalogue
+    node custom-dashboards.js
