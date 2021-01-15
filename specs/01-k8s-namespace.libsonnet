@@ -7,6 +7,9 @@
       userId: 'NEED TO BE SET',
     },
   },
+
+  // --- functions and components ---
+
   _tagFilterExpressionKubernetesNamespace:: {
     name: 'kubernetes.namespace.name',
     type: 'TAG_FILTER',
@@ -119,6 +122,8 @@
   _allMetricsDockerMemoryUsage:: std.map(function(o) o { metric: 'memory.usage', type: 'docker' }, $._allMetrics)
   ,
 
+  // --- dashboard definition ---
+
   accessRules: [
     {
       accessType: 'READ_WRITE',
@@ -177,24 +182,7 @@
           metrics: [
             {
               metric: 'cpu.total_usage',
-              tagFilterExpression: {
-                logicalOperator: 'AND',
-                elements: [
-                  {
-                    name: 'kubernetes.pod.label',
-                    type: 'TAG_FILTER',
-                    value: $._config.kubernetesPodLabel,
-                    operator: 'STARTS_WITH',
-                  },
-                  {
-                    name: 'kubernetes.namespace.name',
-                    type: 'TAG_FILTER',
-                    value: $._config.kubernetesNamespace,
-                    operator: 'EQUALS',
-                  },
-                ],
-                type: 'EXPRESSION',
-              },
+              tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel,
               grouping: [
                 {
                   maxResults: 5,
@@ -238,12 +226,7 @@
           metrics: [
             {
               metric: 'cpuRequests',
-              tagFilterExpression: {
-                name: 'kubernetes.namespace.name',
-                type: 'TAG_FILTER',
-                value: $._config.kubernetesNamespace,
-                operator: 'EQUALS',
-              },
+              tagFilterExpression: $._tagFilterExpressionKubernetesNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Requests',
@@ -252,12 +235,7 @@
             },
             {
               metric: 'cpuLimits',
-              tagFilterExpression: {
-                name: 'kubernetes.namespace.name',
-                type: 'TAG_FILTER',
-                value: $._config.kubernetesNamespace,
-                operator: 'EQUALS',
-              },
+              tagFilterExpression: $._tagFilterExpressionKubernetesNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Limits',
@@ -289,24 +267,7 @@
           metrics: [
             {
               metric: 'cpuRequests',
-              tagFilterExpression: {
-                logicalOperator: 'AND',
-                elements: [
-                  {
-                    name: 'kubernetes.pod.label',
-                    type: 'TAG_FILTER',
-                    value: $._config.kubernetesPodLabel,
-                    operator: 'STARTS_WITH',
-                  },
-                  {
-                    name: 'kubernetes.namespace.name',
-                    type: 'TAG_FILTER',
-                    value: $._config.kubernetesNamespace,
-                    operator: 'EQUALS',
-                  },
-                ],
-                type: 'EXPRESSION',
-              },
+              tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel,
               grouping: [
                 {
                   maxResults: 10,
@@ -394,12 +355,7 @@
           metrics: [
             {
               metric: 'memoryRequests',
-              tagFilterExpression: {
-                name: 'kubernetes.namespace.name',
-                type: 'TAG_FILTER',
-                value: $._config.kubernetesNamespace,
-                operator: 'EQUALS',
-              },
+              tagFilterExpression: $._tagFilterExpressionKubernetesNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'Memory Requests',
@@ -408,12 +364,7 @@
             },
             {
               metric: 'memory.limit',
-              tagFilterExpression: {
-                name: 'kubernetes.namespace.name',
-                type: 'TAG_FILTER',
-                value: $._config.kubernetesNamespace,
-                operator: 'EQUALS',
-              },
+              tagFilterExpression: $._tagFilterExpressionKubernetesNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'Memory Limits',
@@ -445,24 +396,7 @@
           metrics: [
             {
               metric: 'memoryRequests',
-              tagFilterExpression: {
-                logicalOperator: 'AND',
-                elements: [
-                  {
-                    name: 'kubernetes.pod.label',
-                    type: 'TAG_FILTER',
-                    value: $._config.kubernetesPodLabel,
-                    operator: 'STARTS_WITH',
-                  },
-                  {
-                    name: 'kubernetes.namespace.name',
-                    type: 'TAG_FILTER',
-                    value: $._config.kubernetesNamespace,
-                    operator: 'EQUALS',
-                  },
-                ],
-                type: 'EXPRESSION',
-              },
+              tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Memory',
@@ -471,24 +405,7 @@
             },
             {
               metric: 'memoryLimits',
-              tagFilterExpression: {
-                logicalOperator: 'AND',
-                elements: [
-                  {
-                    name: 'kubernetes.pod.label',
-                    type: 'TAG_FILTER',
-                    value: $._config.kubernetesPodLabel,
-                    operator: 'STARTS_WITH',
-                  },
-                  {
-                    name: 'kubernetes.namespace.name',
-                    type: 'TAG_FILTER',
-                    value: $._config.kubernetesNamespace,
-                    operator: 'EQUALS',
-                  },
-                ],
-                type: 'EXPRESSION',
-              },
+              tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Limits',
