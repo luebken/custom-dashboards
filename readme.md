@@ -6,7 +6,7 @@ This repository contains some sample custom dashboards which can be used as an i
 
 ## Prerequisites
 
-This upcoming script leverages the Instana [API](https://instana.github.io/openapi/). Access control is managed by [Access Tokens](https://www.instana.com/docs/api/web/#tokens). Set the API access token as an environment variable. e.g.:
+This upcoming script leverages the Instana [API](https://instana.github.io/openapi/). Access control is managed by [Access Tokens](https://www.instana.com/docs/api/web/#tokens). Ensure that the token has right set: "Creation of public custom dashboards". Set the API access token as an environment variable. e.g.:
 
     export INSTANA_API_TOKEN="123123123"
 
