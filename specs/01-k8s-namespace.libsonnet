@@ -3,14 +3,14 @@
     kubernetesNamespace: 'robot-shop',
     kubernetesPodLabel: 'app=',
     instana: {
-      baseUrl: 'NEED TO BE SET',
-      userId: 'NEED TO BE SET',
+      baseUrl: '<NEEDS TO BE SET>',
+      userId: '<NEEDS TO BE SET>',
     },
   },
 
-  // --- functions and components ---
+  // --- components ---
 
-  _tagFilterExpressionKubernetesNamespace:: {
+  _tagFilterExpressionK8sNamespace:: {
     name: 'kubernetes.namespace.name',
     type: 'TAG_FILTER',
     value: $._config.kubernetesNamespace,
@@ -34,92 +34,93 @@
     ],
     type: 'EXPRESSION',
   },
-  _allMetrics:: [
+  // Template. Has variables which need to be set.
+  _allMetricsTemplate:: [
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: '<NEEDS TO BE SET>',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'MEAN',
       label: 'Mean',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: '<NEEDS TO BE SET>',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'P25',
       label: 'P25',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: '<NEEDS TO BE SET>',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'P50',
       label: 'P50',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: '<NEEDS TO BE SET>',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'P75',
       label: 'P75',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: '<NEEDS TO BE SET>',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'P90',
       label: 'P90',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: '<NEEDS TO BE SET>',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'P95',
       label: 'P95',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: '<NEEDS TO BE SET>',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'P98',
       label: 'P98',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: 'TO<NEEDS TO BE SET>DO',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'P99',
       label: 'P99',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
     {
-      metric: 'TODO',
-      tagFilterExpression: 'TODO',
+      metric: '<NEEDS TO BE SET>',
+      tagFilterExpression: '<NEEDS TO BE SET>',
       timeShift: 0,
       aggregation: 'MAX',
       label: 'Max',
       source: 'INFRASTRUCTURE_METRICS',
-      type: 'TODO',
+      type: '<NEEDS TO BE SET>',
     },
   ],
-  _allMetricsDockerCpuTotalUsage:: std.map(function(o) o { metric: 'cpu.total_usage', type: 'docker' }, $._allMetrics),
-  _allMetricsDockerCpuThrottlingCount:: std.map(function(o) o { metric: 'cpu.throttling_count', type: 'docker' }, $._allMetrics),
-  _allMetricsDockerMemoryUsage:: std.map(function(o) o { metric: 'memory.usage', type: 'docker' }, $._allMetrics)
+  _allMetricsDockerCpuTotalUsage:: std.map(function(o) o { metric: 'cpu.total_usage', type: 'docker' }, $._allMetricsTemplate),
+  _allMetricsDockerCpuThrottlingCount:: std.map(function(o) o { metric: 'cpu.throttling_count', type: 'docker' }, $._allMetricsTemplate),
+  _allMetricsDockerMemoryUsage:: std.map(function(o) o { metric: 'memory.usage', type: 'docker' }, $._allMetricsTemplate)
   ,
 
   // --- dashboard definition ---
@@ -157,7 +158,7 @@
         y1: {
           formatter: 'number.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionKubernetesNamespace }, $._allMetricsDockerCpuTotalUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionK8sNamespace }, $._allMetricsDockerCpuTotalUsage),
         },
         y2: {
           formatter: 'number.detailed',
@@ -226,7 +227,7 @@
           metrics: [
             {
               metric: 'cpuRequests',
-              tagFilterExpression: $._tagFilterExpressionKubernetesNamespace,
+              tagFilterExpression: $._tagFilterExpressionK8sNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Requests',
@@ -235,7 +236,7 @@
             },
             {
               metric: 'cpuLimits',
-              tagFilterExpression: $._tagFilterExpressionKubernetesNamespace,
+              tagFilterExpression: $._tagFilterExpressionK8sNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Limits',
@@ -308,7 +309,7 @@
         y1: {
           formatter: 'number.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionKubernetesNamespace }, $._allMetricsDockerCpuThrottlingCount),
+          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionK8sNamespace }, $._allMetricsDockerCpuThrottlingCount),
         },
         y2: {
           formatter: 'number.detailed',
@@ -355,7 +356,7 @@
           metrics: [
             {
               metric: 'memoryRequests',
-              tagFilterExpression: $._tagFilterExpressionKubernetesNamespace,
+              tagFilterExpression: $._tagFilterExpressionK8sNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'Memory Requests',
@@ -364,7 +365,7 @@
             },
             {
               metric: 'memory.limit',
-              tagFilterExpression: $._tagFilterExpressionKubernetesNamespace,
+              tagFilterExpression: $._tagFilterExpressionK8sNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'Memory Limits',
@@ -434,7 +435,7 @@
         y1: {
           formatter: 'bytes.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionKubernetesNamespace }, $._allMetricsDockerMemoryUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionK8sNamespace }, $._allMetricsDockerMemoryUsage),
         },
         y2: {
           formatter: 'number.detailed',
