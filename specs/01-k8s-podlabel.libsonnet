@@ -1,14 +1,14 @@
 {
   _config+:: {
     k8s: {
-      ns: 'robot-shop',
+      ns: 'robot-shop',  // Change to your namespace.
       pod: {
-        labelPrefix: 'app=',
+        labelPrefix: 'app=',  // Change to any preferred pod label prefix: e.g. app.kubernetes.io/name or app.kubernetes.io/version
       },
     },
     instana: {
-      baseUrl: '<NEEDS TO BE SET>',
-      userId: '<NEEDS TO BE SET>',
+      baseUrl: '<NEEDS TO BE SET>',  // Will be set by env.INSTANA_BASE_URL
+      userId: '<NEEDS TO BE SET>',  // Will be set by env.INSTANA_USER_ID
     },
   },
 

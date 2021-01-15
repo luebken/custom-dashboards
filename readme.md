@@ -18,8 +18,12 @@ Finally to create a dashboard you need to aquire a `user_id` which is set as the
 
     export INSTANA_USER_ID="123123123"
 
-## Install K8s Dashboards
+## Install
 
-The sample Dashboards are defined in the [specs](specs) folder. See the respect `_config+` section to configure
+The sample Dashboards are defined in the [specs](specs) folder. To install all dashboards with the default configuration run:
  
     node custom-dashboards.js
+
+## Configure & Adapting Dashoards
+
+The specs aber based on [Jsonnet](https://jsonnet.org/). To configure the individual dashboards see the respective `_config+` section.
