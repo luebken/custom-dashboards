@@ -1,7 +1,11 @@
 {
   _config+:: {
-    kubernetesNamespace: 'robot-shop',
-    kubernetesPodLabel: 'app=',
+    k8s: {
+      ns: 'robot-shop',
+      pod: {
+        labelPrefix: 'app=',
+      },
+    },
     instana: {
       baseUrl: '<NEEDS TO BE SET>',
       userId: '<NEEDS TO BE SET>',
@@ -13,7 +17,7 @@
   _tagFilterExpressionK8sNamespace:: {
     name: 'kubernetes.namespace.name',
     type: 'TAG_FILTER',
-    value: $._config.kubernetesNamespace,
+    value: $._config.k8s.ns,
     operator: 'EQUALS',
   },
   _tagFilterExpressionK8sNamespaceAndPodLabel:: {
@@ -22,13 +26,13 @@
       {
         name: 'kubernetes.pod.label',
         type: 'TAG_FILTER',
-        value: $._config.kubernetesPodLabel,
+        value: $._config.k8s.pod.labelPrefix,
         operator: 'STARTS_WITH',
       },
       {
         name: 'kubernetes.namespace.name',
         type: 'TAG_FILTER',
-        value: $._config.kubernetesNamespace,
+        value: $._config.k8s.ns,
         operator: 'EQUALS',
       },
     ],
@@ -133,18 +137,20 @@
     },
   ],
 
-  title: 'Demo / Kubernetes / Namespace: ' + $._config.kubernetesNamespace,
+  title: 'Demo / Kubernetes / Namespace: ' + $._config.k8s.ns + ' / Label: ' + $._config.k8s.pod.labelPrefix,
 
   widgets: [
     {
       id: 'random-id-0000001',
-      title: 'Demo / Kubernetes / Namespace: ' + $._config.kubernetesNamespace,
+      title: 'Demo / Kubernetes / Namespace: ' + $._config.k8s.ns + ' / Label: ' + $._config.k8s.pod.labelPrefix,
       width: 12,
       height: 6,
       x: 0,
       y: 0,
       type: 'markdown',
-      config: 'This is a demo dashboard to highlight custom dashboards for a Kubernete namespace. The original definition of the dashboard is: [01-k8s-namespace.json](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s-namespace.json)\n\nLinks:\n[Hosts Map](' + $._config.instana.baseUrl + '/#/physical?q=entity.kubernetes.namespace%3A' + $._config.kubernetesNamespace + ') - [Container Map](' + $._config.instana.baseUrl + '/#/container?q=entity.kubernetes.namespace%3A' + $._config.kubernetesNamespace + ') – [Analyze Calls](' + $._config.instana.baseUrl + '/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~' + $._config.kubernetesNamespace + '~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---',
+      config: 'This is a demo dashboard to highlight custom dashboards for a Kubernetes namespace and pod label.'
+              + ' The original definition of the dashboard is: [01-k8s-podlabel.libsonnet](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s-podlabel.libsonnet)\n\n'
+              + 'Links:\n[Hosts Map](' + $._config.instana.baseUrl + '/#/physical?q=entity.kubernetes.namespace%3A' + $._config.k8s.ns + ') - [Container Map](' + $._config.instana.baseUrl + '/#/container?q=entity.kubernetes.namespace%3A' + $._config.k8s.ns + ') – [Analyze Calls](' + $._config.instana.baseUrl + '/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~' + $._config.k8s.ns + '~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---',
     },
     {
       id: 'random-id-0000002',
@@ -170,7 +176,7 @@
     },
     {
       id: 'random-id-0000003',
-      title: 'Docker CPU Usage ("' + $._config.kubernetesPodLabel + '")',
+      title: 'Docker CPU Usage ("' + $._config.k8s.pod.labelPrefix + '")',
       width: 6,
       height: 13,
       x: 6,
@@ -255,7 +261,7 @@
     },
     {
       id: 'random-id-0000005',
-      title: 'Pod CPU Requests ("' + $._config.kubernetesPodLabel + '")',
+      title: 'Pod CPU Requests ("' + $._config.k8s.pod.labelPrefix + '")',
       width: 6,
       height: 13,
       x: 6,
@@ -325,7 +331,7 @@
       height: 13,
       x: 6,
       y: 32,
-      title: 'Docker CPU Throttling ("' + $._config.kubernetesPodLabel + '")',
+      title: 'Docker CPU Throttling ("' + $._config.k8s.pod.labelPrefix + '")',
       type: 'chart',
       config: {
         type: 'TIME_SERIES',
@@ -384,7 +390,7 @@
     },
     {
       id: 'random-id-0000009',
-      title: 'Pod Memory Requests & Limits ("' + $._config.kubernetesPodLabel + '")',
+      title: 'Pod Memory Requests & Limits ("' + $._config.k8s.pod.labelPrefix + '")',
       width: 6,
       height: 13,
       x: 6,
@@ -447,7 +453,7 @@
     },
     {
       id: 'random-id-0000011',
-      title: 'Docker Memory Usage ("' + $._config.kubernetesPodLabel + '")',
+      title: 'Docker Memory Usage ("' + $._config.k8s.pod.labelPrefix + '")',
       width: 6,
       height: 13,
       x: 6,
