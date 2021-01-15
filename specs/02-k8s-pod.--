@@ -1,12 +1,11 @@
 {
     "_meta": {
-        "_comment": "Variables that will be replaced.",
-        "var1": "$KUBERNETES_NAMESPACE_NAME",
+        "var1": "" + $._config.kubernetesNamespace,
         "var2": "$KUBERNETES_POD_LABEL",
         "var3": "$INSTANA_URL",
         "var4": "$USER_ID"
     },
-    "title": "Demo / Kubernetes / Namespace: $KUBERNETES_NAMESPACE_NAME",
+    "title": "Demo / Kubernetes / Namespace: $KUBERNETES_NAMESPACE_NAME / Pods: $KUBERNETES_POD_LABEL",
     "accessRules": [
         {
             "accessType": "READ_WRITE",
@@ -22,7 +21,7 @@
     "widgets": [
         {
             "id": "random-id-0000001",
-            "title": "Demo / Kubernetes / Namespace: $KUBERNETES_NAMESPACE_NAME",
+            "title": "Demo / Kubernetes / Namespace: " + $._config.kubernetesNamespace,
             "width": 12,
             "height": 6,
             "x": 0,
@@ -32,7 +31,7 @@
         },
         {
             "id": "random-id-0000002",
-            "title": "Docker CPU Usage (Total)",
+            "title": "Docker CPU Usage",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -48,7 +47,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -62,7 +61,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -76,7 +75,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -90,7 +89,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -104,7 +103,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -118,7 +117,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -132,7 +131,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -178,27 +177,171 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
                                 "type": "EXPRESSION"
                             },
-                            "grouping": [
-                                {
-                                    "maxResults": 5,
-                                    "by": {
-                                        "groupbyTag": "kubernetes.pod.label",
-                                        "groupbyTagEntity": "NOT_APPLICABLE",
-                                        "groupbyTagSecondLevelKey": ""
-                                    },
-                                    "includeOthers": true,
-                                    "direction": "DESC"
-                                }
-                            ],
                             "timeShift": 0,
                             "aggregation": "MEAN",
                             "label": "Mean",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "logicalOperator": "AND",
+                                "elements": [
+                                    {
+                                        "name": "kubernetes.pod.label",
+                                        "type": "TAG_FILTER",
+                                        "value": "$KUBERNETES_POD_LABEL",
+                                        "operator": "STARTS_WITH"
+                                    },
+                                    {
+                                        "name": "kubernetes.namespace.name",
+                                        "type": "TAG_FILTER",
+                                        "value": "" + $._config.kubernetesNamespace,
+                                        "operator": "EQUALS"
+                                    }
+                                ],
+                                "type": "EXPRESSION"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P75",
+                            "label": "P75",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "logicalOperator": "AND",
+                                "elements": [
+                                    {
+                                        "name": "kubernetes.pod.label",
+                                        "type": "TAG_FILTER",
+                                        "value": "$KUBERNETES_POD_LABEL",
+                                        "operator": "STARTS_WITH"
+                                    },
+                                    {
+                                        "name": "kubernetes.namespace.name",
+                                        "type": "TAG_FILTER",
+                                        "value": "" + $._config.kubernetesNamespace,
+                                        "operator": "EQUALS"
+                                    }
+                                ],
+                                "type": "EXPRESSION"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P90",
+                            "label": "P90",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "logicalOperator": "AND",
+                                "elements": [
+                                    {
+                                        "name": "kubernetes.pod.label",
+                                        "type": "TAG_FILTER",
+                                        "value": "$KUBERNETES_POD_LABEL",
+                                        "operator": "STARTS_WITH"
+                                    },
+                                    {
+                                        "name": "kubernetes.namespace.name",
+                                        "type": "TAG_FILTER",
+                                        "value": "" + $._config.kubernetesNamespace,
+                                        "operator": "EQUALS"
+                                    }
+                                ],
+                                "type": "EXPRESSION"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P95",
+                            "label": "P95",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "logicalOperator": "AND",
+                                "elements": [
+                                    {
+                                        "name": "kubernetes.pod.label",
+                                        "type": "TAG_FILTER",
+                                        "value": "$KUBERNETES_POD_LABEL",
+                                        "operator": "STARTS_WITH"
+                                    },
+                                    {
+                                        "name": "kubernetes.namespace.name",
+                                        "type": "TAG_FILTER",
+                                        "value": "" + $._config.kubernetesNamespace,
+                                        "operator": "EQUALS"
+                                    }
+                                ],
+                                "type": "EXPRESSION"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P98",
+                            "label": "P98",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "logicalOperator": "AND",
+                                "elements": [
+                                    {
+                                        "name": "kubernetes.pod.label",
+                                        "type": "TAG_FILTER",
+                                        "value": "$KUBERNETES_POD_LABEL",
+                                        "operator": "STARTS_WITH"
+                                    },
+                                    {
+                                        "name": "kubernetes.namespace.name",
+                                        "type": "TAG_FILTER",
+                                        "value": "" + $._config.kubernetesNamespace,
+                                        "operator": "EQUALS"
+                                    }
+                                ],
+                                "type": "EXPRESSION"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "P99",
+                            "label": "P99",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "docker"
+                        },
+                        {
+                            "metric": "cpu.total_usage",
+                            "tagFilterExpression": {
+                                "logicalOperator": "AND",
+                                "elements": [
+                                    {
+                                        "name": "kubernetes.pod.label",
+                                        "type": "TAG_FILTER",
+                                        "value": "$KUBERNETES_POD_LABEL",
+                                        "operator": "STARTS_WITH"
+                                    },
+                                    {
+                                        "name": "kubernetes.namespace.name",
+                                        "type": "TAG_FILTER",
+                                        "value": "" + $._config.kubernetesNamespace,
+                                        "operator": "EQUALS"
+                                    }
+                                ],
+                                "type": "EXPRESSION"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "MAX",
+                            "label": "Max",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "docker"
                         }
@@ -214,7 +357,7 @@
         },
         {
             "id": "random-id-0000004",
-            "title": "Pod CPU Requests & Limits (Total)",
+            "title": "Pod CPU Requests & Limits",
             "width": 6,
             "height": 13,
             "x": 0,
@@ -230,7 +373,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -244,7 +387,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -265,7 +408,7 @@
         },
         {
             "id": "random-id-0000005",
-            "title": "Pod CPU Requests (\"$KUBERNETES_POD_LABEL\")",
+            "title": "Pod CPU Requests & Limits (\"$KUBERNETES_POD_LABEL\")",
             "width": 6,
             "height": 13,
             "x": 6,
@@ -290,27 +433,41 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
                                 "type": "EXPRESSION"
                             },
-                            "grouping": [
-                                {
-                                    "maxResults": 10,
-                                    "by": {
-                                        "groupbyTag": "kubernetes.pod.label",
-                                        "groupbyTagEntity": "NOT_APPLICABLE",
-                                        "groupbyTagSecondLevelKey": ""
-                                    },
-                                    "includeOthers": true,
-                                    "direction": "DESC"
-                                }
-                            ],
                             "timeShift": 0,
                             "aggregation": "SUM",
                             "label": "CPU Requests",
+                            "source": "INFRASTRUCTURE_METRICS",
+                            "type": "kubernetesPod"
+                        },
+                        {
+                            "metric": "cpuLimits",
+                            "tagFilterExpression": {
+                                "logicalOperator": "AND",
+                                "elements": [
+                                    {
+                                        "name": "kubernetes.pod.label",
+                                        "type": "TAG_FILTER",
+                                        "value": "$KUBERNETES_POD_LABEL",
+                                        "operator": "STARTS_WITH"
+                                    },
+                                    {
+                                        "name": "kubernetes.namespace.name",
+                                        "type": "TAG_FILTER",
+                                        "value": "" + $._config.kubernetesNamespace,
+                                        "operator": "EQUALS"
+                                    }
+                                ],
+                                "type": "EXPRESSION"
+                            },
+                            "timeShift": 0,
+                            "aggregation": "SUM",
+                            "label": "CPU Limits",
                             "source": "INFRASTRUCTURE_METRICS",
                             "type": "kubernetesPod"
                         }
@@ -342,7 +499,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -356,7 +513,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -370,7 +527,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -384,7 +541,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -398,7 +555,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -412,7 +569,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -426,7 +583,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -477,7 +634,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -503,7 +660,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -529,7 +686,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -555,7 +712,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -581,7 +738,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -607,7 +764,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -633,7 +790,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -668,7 +825,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -682,7 +839,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -728,7 +885,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -754,7 +911,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -794,7 +951,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -808,7 +965,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -822,7 +979,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -836,7 +993,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -850,7 +1007,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -864,7 +1021,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -878,7 +1035,7 @@
                             "tagFilterExpression": {
                                 "name": "kubernetes.namespace.name",
                                 "type": "TAG_FILTER",
-                                "value": "$KUBERNETES_NAMESPACE_NAME",
+                                "value": "" + $._config.kubernetesNamespace,
                                 "operator": "EQUALS"
                             },
                             "timeShift": 0,
@@ -924,7 +1081,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -950,7 +1107,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -976,7 +1133,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -1002,7 +1159,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -1028,7 +1185,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -1054,7 +1211,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
@@ -1080,7 +1237,7 @@
                                     {
                                         "name": "kubernetes.namespace.name",
                                         "type": "TAG_FILTER",
-                                        "value": "$KUBERNETES_NAMESPACE_NAME",
+                                        "value": "" + $._config.kubernetesNamespace,
                                         "operator": "EQUALS"
                                     }
                                 ],
