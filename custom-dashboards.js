@@ -14,14 +14,15 @@ if (process.argv.length != 2 || !apiToken || !user_id || !baseUrl) {
     console.error('The envs INSTANA_BASE_URL, INSTANA_API_TOKEN and INSTANA_USER_ID need to be set');
     process.exit(1);
 }
-let config = "{_config+:: { instana: { baseUrl: '" + baseUrl + "', userId: '" + user_id + "',},}}"
 
 fs.readdir(spec_dir, (err, files) => {
     files.forEach(file => {
         const isJsonExt = file.substr(file.lastIndexOf(".")) == ".libsonnet"
         if (isJsonExt) {
             let rawdata = fs.readFileSync(spec_dir + file);
-            jsonnet.evaluateSnippet(rawdata.toString() + config)
+            jsonnet.extString("INSTANA_BASE_URL", baseUrl)
+            jsonnet.extString("INSTANA_USER_ID", user_id)
+            jsonnet.evaluateSnippet(rawdata.toString())
                 .then(jsonString => {
                     (async () => {
 

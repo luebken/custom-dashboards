@@ -7,8 +7,8 @@
       },
     },
     instana: {
-      baseUrl: '<NEEDS TO BE SET>',  // Will be set by env.INSTANA_BASE_URL
-      userId: '<NEEDS TO BE SET>',  // Will be set by env.INSTANA_USER_ID
+      baseUrl: std.extVar('INSTANA_BASE_URL'),
+      userId: std.extVar('INSTANA_USER_ID'), 
     },
   },
 

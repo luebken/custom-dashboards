@@ -27,3 +27,12 @@ The sample Dashboards are defined in the [specs](specs) folder. To install all d
 ## Configure & Adapting Dashoards
 
 The specs aber based on [Jsonnet](https://jsonnet.org/). To configure the individual dashboards see the respective `_config+` section.
+
+
+## CLI
+
+As the specs are pure Jsonnet you can also use CLI to create the dashboards:
+
+    $ brew install go-jsonnet
+    $ jsonnet specs/01-k8s-podlabel.libsonnet --ext-str INSTANA_BASE_URL=$INSTANA_BASE_URL --ext-str INSTANA_USER_ID=$INSTANA_USER_ID > 01-k8s-podlabel.json
+    $ curl --request POST --url $INSTANA_BASE_URL/api/custom-dashboard --header "authorization: apiToken $INSTANA_API_TOKEN" --header 'content-type: application/json' --data @01-k8s-podlabel.json
