@@ -28,6 +28,7 @@ jobs:
         env:
           INSTANA_BASE_URL: ${{ secrets.INSTANA_BASE_URL }}
           INSTANA_USER_ID: ${{ secrets.INSTANA_USER_ID }}
+          INSTANA_API_TOKEN: ${{ secrets.INSTANA_API_TOKEN }}
         run: |
           echo INSTANA_BASE_URL = $INSTANA_BASE_URL 
           jsonnet $GITHUB_WORKSPACE/specs/01-k8s-podlabel.libsonnet --ext-str INSTANA_BASE_URL --ext-str INSTANA_USER_ID > 01-k8s-podlabel.json
