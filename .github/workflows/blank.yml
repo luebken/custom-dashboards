@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master, test-github-actions ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, test-github-actions ]
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -40,5 +40,7 @@ jobs:
           
       # Runs a single command using the runners shell
       - name: Run jsonnet
-        run:  jsonnet -v
+        run: | 
+          jsonnet $GITHUB_WORKSPACE/specs/01-k8s-podlabel.libsonnet --ext-str INSTANA_BASE_URL=$INSTANA_BASE_URL --ext-str INSTANA_USER_ID=$INSTANA_USER_ID > 01-k8s-podlabel.json
+          cat 01-k8s-podlabel.json
 
