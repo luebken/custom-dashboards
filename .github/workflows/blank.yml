@@ -39,7 +39,6 @@ jobs:
           INSTANA_USER_ID: ${{ secrets.INSTANA_USER_ID }}
           INSTANA_API_TOKEN: ${{ secrets.INSTANA_API_TOKEN }}
         run: |
-          curl --request POST --url $INSTANA_BASE_URL/api/custom-dashboard --header "authorization: apiToken $INSTANA_API_TOKEN" --header 'content-type: application/json' --data @01-k8s-podlabel.json
           DASHBOARD_ID=$(curl -s --request POST --url $INSTANA_BASE_URL/api/custom-dashboard --header "authorization: apiToken $INSTANA_API_TOKEN" --header 'content-type: application/json' --data @01-k8s-podlabel.json | jq -r .id)
           DASHBOARD_GET_HTTPCODE=$(curl -s -I -w "%{http_code}" -o /dev/null -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID")
           test $DASHBOARD_GET_HTTPCODE==200
