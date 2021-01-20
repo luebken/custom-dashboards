@@ -33,6 +33,23 @@ The specs aber based on [Jsonnet](https://jsonnet.org/). To configure the indivi
 
 As the specs are pure Jsonnet you can also use CLI to create the dashboards:
 
+    # Install Jsonnet. Eg.
     $ brew install go-jsonnet
-    $ jsonnet specs/01-k8s-podlabel.libsonnet --ext-str INSTANA_BASE_URL=$INSTANA_BASE_URL --ext-str INSTANA_USER_ID=$INSTANA_USER_ID > 01-k8s-podlabel.json
-    $ curl --request POST --url $INSTANA_BASE_URL/api/custom-dashboard --header "authorization: apiToken $INSTANA_API_TOKEN" --header 'content-type: application/json' --data @01-k8s-podlabel.json
+    
+    # Create JSON Payoload for the API
+    $ jsonnet specs/01-k8s-podlabel.libsonnet --ext-str INSTANA_BASE_URL --ext-str INSTANA_USER_ID --ext-str INSTANA_API_TOKEN_RELATION_ID > 01-k8s-podlabel.json
+
+    # Create dashboard
+    $ DASHBOARD_ID=$(curl -s --request POST --url $INSTANA_BASE_URL/api/custom-dashboard --header "authorization: apiToken $INSTANA_API_TOKEN" --header 'content-type: application/json' --data @01-k8s-podlabel.json | jq -r .id)
+    
+    # View dashboard in browser
+    $ open "$INSTANA_BASE_URL/#/customDashboards/view;dashboardId=$DASHBOARD_ID"
+    
+    # Delete the dashboard    
+    $ curl -I -X "DELETE" -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID"
+    # Ensure dashboards was deleted: Should return 404
+    $ curl -I -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID"
+
+    # Test the status code
+    $ DASHBOARD_GET=$(curl -s -I -w "%{http_code}" -o /dev/null -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID")
+    $ test $DASHBOARD_GET==404
