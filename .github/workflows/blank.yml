@@ -33,21 +33,20 @@ jobs:
         run: |
           jsonnet specs/01-k8s-podlabel.libsonnet --ext-str INSTANA_BASE_URL --ext-str INSTANA_USER_ID --ext-str INSTANA_API_TOKEN_RELATION_ID > 01-k8s-podlabel.json
           
-      - name: Create Dashboard
+      - name: Create Dashboard and check
         env:
           INSTANA_BASE_URL: ${{ secrets.INSTANA_BASE_URL }}
-          INSTANA_USER_ID: ${{ secrets.INSTANA_USER_ID }}
           INSTANA_API_TOKEN: ${{ secrets.INSTANA_API_TOKEN }}
         run: |
           DASHBOARD_ID=$(curl -s --request POST --url $INSTANA_BASE_URL/api/custom-dashboard --header "authorization: apiToken $INSTANA_API_TOKEN" --header 'content-type: application/json' --data @01-k8s-podlabel.json | jq -r .id)
           DASHBOARD_GET_HTTPCODE=$(curl -s -I -w "%{http_code}" -o /dev/null -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID")
           if [ $DASHBOARD_GET_HTTPCODE = 200 ]; then echo "Status 200. All good."; else echo "Error. Unexpected status code: $DASHBOARD_GET_HTTPCODE its not 200."; exit 1; fi
 
-      - name: Delete Dashboard
+      - name: Delete Dashboard and check
         env:
           INSTANA_BASE_URL: ${{ secrets.INSTANA_BASE_URL }}
-          INSTANA_USER_ID: ${{ secrets.INSTANA_USER_ID }}
           INSTANA_API_TOKEN: ${{ secrets.INSTANA_API_TOKEN }}
         run: |
+          curl -I -X "DELETE" -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID"
           DASHBOARD_GET_HTTPCODE=$(curl -s -I -w "%{http_code}" -o /dev/null -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID")
-          if [ $DASHBOARD_GET_HTTPCODE = 200 ]; then echo "Status 200. All good."; else echo "Error. Unexpected status code: $DASHBOARD_GET_HTTPCODE its not 200."; exit 1; fi
+          if [ $DASHBOARD_GET_HTTPCODE = 404 ]; then echo "Status 404. All good."; else echo "Error. Unexpected status code: $DASHBOARD_GET_HTTPCODE its not 404."; exit 1; fi
