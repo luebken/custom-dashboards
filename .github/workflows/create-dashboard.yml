@@ -38,7 +38,6 @@ jobs:
           INSTANA_BASE_URL: ${{ secrets.INSTANA_BASE_URL }}
           INSTANA_API_TOKEN: ${{ secrets.INSTANA_API_TOKEN }}
         run: |
-          curl -s --request POST --url $INSTANA_BASE_URL/api/custom-dashboard --header "authorization: apiToken $INSTANA_API_TOKEN" --header 'content-type: application/json' --data @01-k8s-podlabel.json
           DASHBOARD_ID=$(curl -s --request POST --url $INSTANA_BASE_URL/api/custom-dashboard --header "authorization: apiToken $INSTANA_API_TOKEN" --header 'content-type: application/json' --data @01-k8s-podlabel.json | jq -r .id)
           DASHBOARD_GET_HTTPCODE=$(curl -s -I -w "%{http_code}" -o /dev/null -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID")
           if [ $DASHBOARD_GET_HTTPCODE = 200 ]; then echo "Status 200. All good."; else echo "Error. Unexpected status code: $DASHBOARD_GET_HTTPCODE its not 200."; exit 1; fi
@@ -49,8 +48,5 @@ jobs:
           INSTANA_BASE_URL: ${{ secrets.INSTANA_BASE_URL }}
           INSTANA_API_TOKEN: ${{ secrets.INSTANA_API_TOKEN }}
         run: |
-          echo $DASHBOARD_ID
-          curl -I -X "DELETE" -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID"
-          curl -s -I -X "DELETE" -w "%{http_code}" -o /dev/null -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID"
           DASHBOARD_GET_HTTPCODE=$(curl -s -I -X "DELETE" -w "%{http_code}" -o /dev/null -H "authorization: apiToken $INSTANA_API_TOKEN" "$INSTANA_BASE_URL/api/custom-dashboard/$DASHBOARD_ID")
           if [ $DASHBOARD_GET_HTTPCODE = 204 ]; then echo "Status 204. All good."; else echo "Error. Unexpected status code: $DASHBOARD_GET_HTTPCODE is not 204."; exit 1; fi
