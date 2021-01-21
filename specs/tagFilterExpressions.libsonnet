@@ -6,6 +6,13 @@ local _config = (import 'config-k8s.libsonnet');
     value: _config.k8s.ns,
     operator: 'EQUALS',
   },
+  k8sNamespaceAP:: {
+    name: 'kubernetes.namespace',
+    type: 'TAG_FILTER',
+    value: 'robot-shop',
+    entity: 'DESTINATION',
+    operator: 'EQUALS',
+  },
   k8sNamespaceAndPodLabel:: {
     logicalOperator: 'AND',
     elements: [
@@ -24,4 +31,5 @@ local _config = (import 'config-k8s.libsonnet');
     ],
     type: 'EXPRESSION',
   },
+
 }

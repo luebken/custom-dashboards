@@ -1,0 +1,1287 @@
+{
+   "accessRules": [
+      {
+         "accessType": "READ_WRITE",
+         "relatedId": "5ee8a3e8cd70020001ecb007",
+         "relationType": "USER"
+      },
+      {
+         "accessType": "READ_WRITE",
+         "relatedId": "ae2cf441-e09a-422e-b563-4df3434f2dbd",
+         "relationType": "API_TOKEN"
+      }
+   ],
+   "title": "Demo / Kubernetes / Namespace: robot-shop / Label: app=",
+   "widgets": [
+      {
+         "config": "This is a demo dashboard to highlight custom dashboards for a Kubernetes namespace and pod label. The original definition of the dashboard is: [01-k8s-podlabel.libsonnet](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s-podlabel.libsonnet)\n\nLinks:\n[Hosts Map](https://test-instana.pink.instana.rocks/#/physical?q=entity.kubernetes.namespace%3Arobot-shop) - [Container Map](https://test-instana.pink.instana.rocks/#/container?q=entity.kubernetes.namespace%3Arobot-shop) – [Analyze Calls](https://test-instana.pink.instana.rocks/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~robot-shop~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---",
+         "height": 6,
+         "id": "random-id-0000001",
+         "title": "Demo / Kubernetes / Namespace: robot-shop / Label: app=",
+         "type": "markdown",
+         "width": 12,
+         "x": 0,
+         "y": 0
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "number.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "MEAN",
+                     "label": "Mean",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P25",
+                     "label": "P25",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P50",
+                     "label": "P50",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P75",
+                     "label": "P75",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P90",
+                     "label": "P90",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P95",
+                     "label": "P95",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P98",
+                     "label": "P98",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P99",
+                     "label": "P99",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "MAX",
+                     "label": "Max",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  }
+               ],
+               "renderer": "line"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000002",
+         "title": "Docker CPU Usage (Total)",
+         "type": "chart",
+         "width": 6,
+         "x": 0,
+         "y": 6
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "number.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "MEAN",
+                     "grouping": [
+                        {
+                           "by": {
+                              "groupbyTag": "kubernetes.pod.label",
+                              "groupbyTagEntity": "NOT_APPLICABLE",
+                              "groupbyTagSecondLevelKey": ""
+                           },
+                           "direction": "DESC",
+                           "includeOthers": true,
+                           "maxResults": 5
+                        }
+                     ],
+                     "label": "Mean",
+                     "metric": "cpu.total_usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  }
+               ],
+               "renderer": "line"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000003",
+         "title": "Docker CPU Usage (\"app=\")",
+         "type": "chart",
+         "width": 6,
+         "x": 6,
+         "y": 6
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "number.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "SUM",
+                     "label": "CPU Requests",
+                     "metric": "cpuRequests",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "kubernetesPod"
+                  },
+                  {
+                     "aggregation": "SUM",
+                     "label": "CPU Limits",
+                     "metric": "cpuLimits",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "kubernetesPod"
+                  }
+               ],
+               "renderer": "stackedBar"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000004",
+         "title": "Pod CPU Requests & Limits (Total)",
+         "type": "chart",
+         "width": 6,
+         "x": 0,
+         "y": 19
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "number.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "SUM",
+                     "grouping": [
+                        {
+                           "by": {
+                              "groupbyTag": "kubernetes.pod.label",
+                              "groupbyTagEntity": "NOT_APPLICABLE",
+                              "groupbyTagSecondLevelKey": ""
+                           },
+                           "direction": "DESC",
+                           "includeOthers": true,
+                           "maxResults": 10
+                        }
+                     ],
+                     "label": "CPU Requests",
+                     "metric": "cpuRequests",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "kubernetesPod"
+                  }
+               ],
+               "renderer": "stackedBar"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000005",
+         "title": "Pod CPU Requests (\"app=\")",
+         "type": "chart",
+         "width": 6,
+         "x": 6,
+         "y": 19
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "number.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "MEAN",
+                     "label": "Mean",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P25",
+                     "label": "P25",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P50",
+                     "label": "P50",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P75",
+                     "label": "P75",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P90",
+                     "label": "P90",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P95",
+                     "label": "P95",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P98",
+                     "label": "P98",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P99",
+                     "label": "P99",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "MAX",
+                     "label": "Max",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  }
+               ],
+               "renderer": "line"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000006",
+         "title": "Docker CPU Throttling",
+         "type": "chart",
+         "width": 6,
+         "x": 0,
+         "y": 32
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "number.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "MEAN",
+                     "label": "Mean",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P25",
+                     "label": "P25",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P50",
+                     "label": "P50",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P75",
+                     "label": "P75",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P90",
+                     "label": "P90",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P95",
+                     "label": "P95",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P98",
+                     "label": "P98",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P99",
+                     "label": "P99",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "MAX",
+                     "label": "Max",
+                     "metric": "cpu.throttling_count",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  }
+               ],
+               "renderer": "line"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000007",
+         "title": "Docker CPU Throttling (\"app=\")",
+         "type": "chart",
+         "width": 6,
+         "x": 6,
+         "y": 32
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "bytes.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "SUM",
+                     "label": "Memory Requests",
+                     "metric": "memoryRequests",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "kubernetesPod"
+                  },
+                  {
+                     "aggregation": "SUM",
+                     "label": "Memory Limits",
+                     "metric": "memory.limit",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  }
+               ],
+               "renderer": "stackedBar"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000008",
+         "title": "Pod Memory Requests & Limits",
+         "type": "chart",
+         "width": 6,
+         "x": 0,
+         "y": 45
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "bytes.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "SUM",
+                     "label": "CPU Memory",
+                     "metric": "memoryRequests",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "kubernetesPod"
+                  },
+                  {
+                     "aggregation": "SUM",
+                     "label": "CPU Limits",
+                     "metric": "memoryLimits",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "kubernetesPod"
+                  }
+               ],
+               "renderer": "stackedBar"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000009",
+         "title": "Pod Memory Requests & Limits (\"app=\")",
+         "type": "chart",
+         "width": 6,
+         "x": 6,
+         "y": 45
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "bytes.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "MEAN",
+                     "label": "Mean",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P25",
+                     "label": "P25",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P50",
+                     "label": "P50",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P75",
+                     "label": "P75",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P90",
+                     "label": "P90",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P95",
+                     "label": "P95",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P98",
+                     "label": "P98",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P99",
+                     "label": "P99",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "MAX",
+                     "label": "Max",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "name": "kubernetes.namespace.name",
+                        "operator": "EQUALS",
+                        "type": "TAG_FILTER",
+                        "value": "robot-shop"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  }
+               ],
+               "renderer": "line"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000010",
+         "title": "Docker Memory Usage",
+         "type": "chart",
+         "width": 6,
+         "x": 0,
+         "y": 59
+      },
+      {
+         "config": {
+            "type": "TIME_SERIES",
+            "y1": {
+               "formatter": "bytes.detailed",
+               "metrics": [
+                  {
+                     "aggregation": "MEAN",
+                     "label": "Mean",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P25",
+                     "label": "P25",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P50",
+                     "label": "P50",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P75",
+                     "label": "P75",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P90",
+                     "label": "P90",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P95",
+                     "label": "P95",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P98",
+                     "label": "P98",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "P99",
+                     "label": "P99",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  },
+                  {
+                     "aggregation": "MAX",
+                     "label": "Max",
+                     "metric": "memory.usage",
+                     "source": "INFRASTRUCTURE_METRICS",
+                     "tagFilterExpression": {
+                        "elements": [
+                           {
+                              "name": "kubernetes.pod.label",
+                              "operator": "STARTS_WITH",
+                              "type": "TAG_FILTER",
+                              "value": "app="
+                           },
+                           {
+                              "name": "kubernetes.namespace.name",
+                              "operator": "EQUALS",
+                              "type": "TAG_FILTER",
+                              "value": "robot-shop"
+                           }
+                        ],
+                        "logicalOperator": "AND",
+                        "type": "EXPRESSION"
+                     },
+                     "timeShift": 0,
+                     "type": "docker"
+                  }
+               ],
+               "renderer": "line"
+            },
+            "y2": {
+               "formatter": "number.detailed",
+               "metrics": [ ],
+               "renderer": "line"
+            }
+         },
+         "height": 13,
+         "id": "random-id-0000011",
+         "title": "Docker Memory Usage (\"app=\")",
+         "type": "chart",
+         "width": 6,
+         "x": 6,
+         "y": 59
+      }
+   ]
+}

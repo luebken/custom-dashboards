@@ -6,10 +6,10 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
   cpuRequestsAndLimitsForK8sNamespace: {
     id: 'random-id-0000004',
     title: 'Pod CPU Requests & Limits (Total)',
-    width: 6,
-    height: 13,
-    x: 0,
-    y: 19,
+    width: '<NEEDS TO BE SET>',
+    height: '<NEEDS TO BE SET>',
+    x: '<NEEDS TO BE SET>',
+    y: '<NEEDS TO BE SET>',
     type: 'chart',
     config: {
       y1: {
@@ -48,10 +48,10 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
   cpuRequestsForK8sPodLabels: {
     id: 'random-id-0000005',
     title: 'Pod CPU Requests ("' + _config.k8s.pod.labelPrefix + '")',
-    width: 6,
-    height: 13,
-    x: 6,
-    y: 19,
+    width: '<NEEDS TO BE SET>',
+    height: '<NEEDS TO BE SET>',
+    x: '<NEEDS TO BE SET>',
+    y: '<NEEDS TO BE SET>',
     type: 'chart',
     config: {
       y1: {
@@ -93,10 +93,10 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
   memoryRequestsAndLimitsForK8sNamespace: {
     id: 'random-id-0000008',
     title: 'Pod Memory Requests & Limits',
-    width: 6,
-    height: 13,
-    x: 0,
-    y: 45,
+    width: '<NEEDS TO BE SET>',
+    height: '<NEEDS TO BE SET>',
+    x: '<NEEDS TO BE SET>',
+    y: '<NEEDS TO BE SET>',
     type: 'chart',
     config: {
       y1: {
@@ -135,10 +135,10 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
   memoryRequestsAndLimitsForK8sPodLabel: {
     id: 'random-id-0000009',
     title: 'Pod Memory Requests & Limits ("' + _config.k8s.pod.labelPrefix + '")',
-    width: 6,
-    height: 13,
-    x: 6,
-    y: 45,
+    width: '<NEEDS TO BE SET>',
+    height: '<NEEDS TO BE SET>',
+    x: '<NEEDS TO BE SET>',
+    y: '<NEEDS TO BE SET>',
     type: 'chart',
     config: {
       y1: {
