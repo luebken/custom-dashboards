@@ -4,6 +4,7 @@ local metrics = import 'metrics-infrastructure.libsonnet';
 local accessRules = import 'config-accessRules.libsonnet';
 local widgetsDocker = import 'widgets-docker.libsonnet';
 local widgetsPod = import 'widgets-pod.libsonnet';
+local widgetsJvm = import 'widgets-jvm.libsonnet';
 local widgetsServices = import 'widgets-services.libsonnet';
 
 {
@@ -95,6 +96,25 @@ local widgetsServices = import 'widgets-services.libsonnet';
       height: 14,
       x: 4,
       y: 64,
+    },
+
+    widgetsJvm.jvmHeapMemory {
+      width: 4,
+      height: 13,
+      x: 4,
+      y: 78,
+    },
+    widgetsJvm.jvmThreads {
+      width: 4,
+      height: 13,
+      x: 0,
+      y: 78,
+    },
+    widgetsJvm.jvmGC {
+      width: 4,
+      height: 13,
+      x: 8,
+      y: 78,
     },
   ],
 }
