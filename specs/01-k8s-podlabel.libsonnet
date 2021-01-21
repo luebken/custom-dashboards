@@ -1,40 +1,9 @@
-local _config = (import 'config-instana.libsonnet') + {
-    k8s: {
-      ns: 'robot-shop',  // Change to your namespace.
-      pod: {
-        labelPrefix: 'app=',  // Change to any preferred pod label prefix: e.g. app.kubernetes.io/name or app.kubernetes.io/version
-      },
-    }
-};
-
+local _config = (import 'config-instana.libsonnet') + (import 'config-k8s.libsonnet');
+local tagFilterExpression = (import 'tagFilterExpressions.libsonnet') ;
 {
 
   // --- components ---
 
-  _tagFilterExpressionK8sNamespace:: {
-    name: 'kubernetes.namespace.name',
-    type: 'TAG_FILTER',
-    value: _config.k8s.ns,
-    operator: 'EQUALS',
-  },
-  _tagFilterExpressionK8sNamespaceAndPodLabel:: {
-    logicalOperator: 'AND',
-    elements: [
-      {
-        name: 'kubernetes.pod.label',
-        type: 'TAG_FILTER',
-        value: _config.k8s.pod.labelPrefix,
-        operator: 'STARTS_WITH',
-      },
-      {
-        name: 'kubernetes.namespace.name',
-        type: 'TAG_FILTER',
-        value: _config.k8s.ns,
-        operator: 'EQUALS',
-      },
-    ],
-    type: 'EXPRESSION',
-  },
   // Template. Has variables which need to be set.
   _allMetricsTemplate:: [
     {
@@ -166,7 +135,7 @@ local _config = (import 'config-instana.libsonnet') + {
         y1: {
           formatter: 'number.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionK8sNamespace }, $._allMetricsDockerCpuTotalUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, $._allMetricsDockerCpuTotalUsage),
         },
         y2: {
           formatter: 'number.detailed',
@@ -191,7 +160,7 @@ local _config = (import 'config-instana.libsonnet') + {
           metrics: [
             {
               metric: 'cpu.total_usage',
-              tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel,
+              tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
               grouping: [
                 {
                   maxResults: 5,
@@ -235,7 +204,7 @@ local _config = (import 'config-instana.libsonnet') + {
           metrics: [
             {
               metric: 'cpuRequests',
-              tagFilterExpression: $._tagFilterExpressionK8sNamespace,
+              tagFilterExpression: tagFilterExpression.k8sNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Requests',
@@ -244,7 +213,7 @@ local _config = (import 'config-instana.libsonnet') + {
             },
             {
               metric: 'cpuLimits',
-              tagFilterExpression: $._tagFilterExpressionK8sNamespace,
+              tagFilterExpression: tagFilterExpression.k8sNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Limits',
@@ -276,7 +245,7 @@ local _config = (import 'config-instana.libsonnet') + {
           metrics: [
             {
               metric: 'cpuRequests',
-              tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel,
+              tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
               grouping: [
                 {
                   maxResults: 10,
@@ -317,7 +286,7 @@ local _config = (import 'config-instana.libsonnet') + {
         y1: {
           formatter: 'number.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionK8sNamespace }, $._allMetricsDockerCpuThrottlingCount),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, $._allMetricsDockerCpuThrottlingCount),
         },
         y2: {
           formatter: 'number.detailed',
@@ -340,7 +309,7 @@ local _config = (import 'config-instana.libsonnet') + {
         y1: {
           formatter: 'number.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel }, $._allMetricsDockerCpuThrottlingCount),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, $._allMetricsDockerCpuThrottlingCount),
         },
         y2: {
           formatter: 'number.detailed',
@@ -364,7 +333,7 @@ local _config = (import 'config-instana.libsonnet') + {
           metrics: [
             {
               metric: 'memoryRequests',
-              tagFilterExpression: $._tagFilterExpressionK8sNamespace,
+              tagFilterExpression: tagFilterExpression.k8sNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'Memory Requests',
@@ -373,7 +342,7 @@ local _config = (import 'config-instana.libsonnet') + {
             },
             {
               metric: 'memory.limit',
-              tagFilterExpression: $._tagFilterExpressionK8sNamespace,
+              tagFilterExpression: tagFilterExpression.k8sNamespace,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'Memory Limits',
@@ -405,7 +374,7 @@ local _config = (import 'config-instana.libsonnet') + {
           metrics: [
             {
               metric: 'memoryRequests',
-              tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel,
+              tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Memory',
@@ -414,7 +383,7 @@ local _config = (import 'config-instana.libsonnet') + {
             },
             {
               metric: 'memoryLimits',
-              tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel,
+              tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
               timeShift: 0,
               aggregation: 'SUM',
               label: 'CPU Limits',
@@ -443,7 +412,7 @@ local _config = (import 'config-instana.libsonnet') + {
         y1: {
           formatter: 'bytes.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionK8sNamespace }, $._allMetricsDockerMemoryUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, $._allMetricsDockerMemoryUsage),
         },
         y2: {
           formatter: 'number.detailed',
@@ -465,7 +434,7 @@ local _config = (import 'config-instana.libsonnet') + {
         y1: {
           formatter: 'bytes.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: $._tagFilterExpressionK8sNamespaceAndPodLabel }, $._allMetricsDockerMemoryUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, $._allMetricsDockerMemoryUsage),
         },
         y2: {
           formatter: 'number.detailed',

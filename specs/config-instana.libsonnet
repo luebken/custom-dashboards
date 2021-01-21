@@ -1,4 +1,4 @@
-# General configuration options.
+// General configuration options.
 {
   instana: {
     baseUrl: std.extVar('INSTANA_BASE_URL'),
