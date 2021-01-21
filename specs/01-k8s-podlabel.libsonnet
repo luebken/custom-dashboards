@@ -2,6 +2,7 @@ local _config = (import 'config-instana.libsonnet') + (import 'config-k8s.libson
 local tagFilterExpression = (import 'tagFilterExpressions.libsonnet');
 local metrics = (import 'metrics-infrastructure.libsonnet');
 local accessRules = (import 'config-accessRules.libsonnet');
+local widgetsDocker = (import 'widgets-docker.libsonnet');
 
 {
   accessRules: accessRules.accessRules,
@@ -21,27 +22,11 @@ local accessRules = (import 'config-accessRules.libsonnet');
               + ' The original definition of the dashboard is: [01-k8s-podlabel.libsonnet](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s-podlabel.libsonnet)\n\n'
               + 'Links:\n[Hosts Map](' + _config.instana.baseUrl + '/#/physical?q=entity.kubernetes.namespace%3A' + _config.k8s.ns + ') - [Container Map](' + _config.instana.baseUrl + '/#/container?q=entity.kubernetes.namespace%3A' + _config.k8s.ns + ') – [Analyze Calls](' + _config.instana.baseUrl + '/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~' + _config.k8s.ns + '~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---',
     },
-    {
-      id: 'random-id-0000002',
-      title: 'Docker CPU Usage (Total)',
+    widgetsDocker.dockerCpuTotalUsageForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
       y: 6,
-      type: 'chart',
-      config: {
-        y1: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerCpuTotalUsage),
-        },
-        y2: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: [],
-        },
-        type: 'TIME_SERIES',
-      },
     },
     {
       id: 'random-id-0000003',
