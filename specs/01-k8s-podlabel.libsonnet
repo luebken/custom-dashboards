@@ -1,8 +1,8 @@
 local _config = (import 'config-instana.libsonnet') + (import 'config-k8s.libsonnet');
-local tagFilterExpression = (import 'tagFilterExpressions.libsonnet');
-local metrics = (import 'metrics-infrastructure.libsonnet');
-local accessRules = (import 'config-accessRules.libsonnet');
-local widgetsDocker = (import 'widgets-docker.libsonnet');
+local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
+local metrics = import 'metrics-infrastructure.libsonnet';
+local accessRules = import 'config-accessRules.libsonnet';
+local widgetsDocker = import 'widgets-docker.libsonnet';
 
 {
   accessRules: accessRules.accessRules,
@@ -22,55 +22,17 @@ local widgetsDocker = (import 'widgets-docker.libsonnet');
               + ' The original definition of the dashboard is: [01-k8s-podlabel.libsonnet](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s-podlabel.libsonnet)\n\n'
               + 'Links:\n[Hosts Map](' + _config.instana.baseUrl + '/#/physical?q=entity.kubernetes.namespace%3A' + _config.k8s.ns + ') - [Container Map](' + _config.instana.baseUrl + '/#/container?q=entity.kubernetes.namespace%3A' + _config.k8s.ns + ') – [Analyze Calls](' + _config.instana.baseUrl + '/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~' + _config.k8s.ns + '~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---',
     },
-    widgetsDocker.dockerCpuTotalUsageForK8sNamespace {
+    widgetsDocker.cpuTotalUsageForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
       y: 6,
     },
-    {
-      id: 'random-id-0000003',
-      title: 'Docker CPU Usage ("' + _config.k8s.pod.labelPrefix + '")',
+    widgetsDocker.cpuTotalUsageForK8sPodLabel {
       width: 6,
       height: 13,
       x: 6,
       y: 6,
-      type: 'chart',
-      config: {
-        y1: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: [
-            {
-              metric: 'cpu.total_usage',
-              tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
-              grouping: [
-                {
-                  maxResults: 5,
-                  by: {
-                    groupbyTag: 'kubernetes.pod.label',
-                    groupbyTagEntity: 'NOT_APPLICABLE',
-                    groupbyTagSecondLevelKey: '',
-                  },
-                  includeOthers: true,
-                  direction: 'DESC',
-                },
-              ],
-              timeShift: 0,
-              aggregation: 'MEAN',
-              label: 'Mean',
-              source: 'INFRASTRUCTURE_METRICS',
-              type: 'docker',
-            },
-          ],
-        },
-        y2: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: [],
-        },
-        type: 'TIME_SERIES',
-      },
     },
     {
       id: 'random-id-0000004',
@@ -157,49 +119,17 @@ local widgetsDocker = (import 'widgets-docker.libsonnet');
         type: 'TIME_SERIES',
       },
     },
-    {
-      id: 'random-id-0000006',
-      title: 'Docker CPU Throttling',
+    widgetsDocker.cpuThrottlingCountForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
       y: 32,
-      type: 'chart',
-      config: {
-        y1: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerCpuThrottlingCount),
-        },
-        y2: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: [],
-        },
-        type: 'TIME_SERIES',
-      },
     },
-    {
-      id: 'random-id-0000007',
+    widgetsDocker.cpuThrottlingCountForK8sPodLabel {
       width: 6,
       height: 13,
       x: 6,
       y: 32,
-      title: 'Docker CPU Throttling ("' + _config.k8s.pod.labelPrefix + '")',
-      type: 'chart',
-      config: {
-        type: 'TIME_SERIES',
-        y1: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, metrics.dockerCpuThrottlingCount),
-        },
-        y2: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: [],
-        },
-      },
     },
     {
       id: 'random-id-0000008',
@@ -283,49 +213,17 @@ local widgetsDocker = (import 'widgets-docker.libsonnet');
         type: 'TIME_SERIES',
       },
     },
-    {
-      id: 'random-id-0000010',
-      title: 'Docker Memory Usage',
+    widgetsDocker.memoryUsageForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
       y: 59,
-      type: 'chart',
-      config: {
-        y1: {
-          formatter: 'bytes.detailed',
-          renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerMemoryUsage),
-        },
-        y2: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: [],
-        },
-        type: 'TIME_SERIES',
-      },
     },
-    {
-      id: 'random-id-0000011',
-      title: 'Docker Memory Usage ("' + _config.k8s.pod.labelPrefix + '")',
+    widgetsDocker.memoryUsageForK8sPodLabel {
       width: 6,
       height: 13,
       x: 6,
       y: 59,
-      type: 'chart',
-      config: {
-        y1: {
-          formatter: 'bytes.detailed',
-          renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, metrics.dockerMemoryUsage),
-        },
-        y2: {
-          formatter: 'number.detailed',
-          renderer: 'line',
-          metrics: [],
-        },
-        type: 'TIME_SERIES',
-      },
     },
   ],
 }
