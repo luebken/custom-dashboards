@@ -1,112 +1,10 @@
 local _config = (import 'config-instana.libsonnet') + (import 'config-k8s.libsonnet');
-local tagFilterExpression = (import 'tagFilterExpressions.libsonnet') ;
+local tagFilterExpression = (import 'tagFilterExpressions.libsonnet');
+local metrics = (import 'metrics-infrastructure.libsonnet');
+local accessRules = (import 'config-accessRules.libsonnet');
+
 {
-
-  // --- components ---
-
-  // Template. Has variables which need to be set.
-  _allMetricsTemplate:: [
-    {
-      metric: '<NEEDS TO BE SET>',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'MEAN',
-      label: 'Mean',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-    {
-      metric: '<NEEDS TO BE SET>',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'P25',
-      label: 'P25',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-    {
-      metric: '<NEEDS TO BE SET>',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'P50',
-      label: 'P50',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-    {
-      metric: '<NEEDS TO BE SET>',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'P75',
-      label: 'P75',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-    {
-      metric: '<NEEDS TO BE SET>',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'P90',
-      label: 'P90',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-    {
-      metric: '<NEEDS TO BE SET>',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'P95',
-      label: 'P95',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-    {
-      metric: '<NEEDS TO BE SET>',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'P98',
-      label: 'P98',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-    {
-      metric: 'TO<NEEDS TO BE SET>DO',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'P99',
-      label: 'P99',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-    {
-      metric: '<NEEDS TO BE SET>',
-      tagFilterExpression: '<NEEDS TO BE SET>',
-      timeShift: 0,
-      aggregation: 'MAX',
-      label: 'Max',
-      source: 'INFRASTRUCTURE_METRICS',
-      type: '<NEEDS TO BE SET>',
-    },
-  ],
-  _allMetricsDockerCpuTotalUsage:: std.map(function(o) o { metric: 'cpu.total_usage', type: 'docker' }, $._allMetricsTemplate),
-  _allMetricsDockerCpuThrottlingCount:: std.map(function(o) o { metric: 'cpu.throttling_count', type: 'docker' }, $._allMetricsTemplate),
-  _allMetricsDockerMemoryUsage:: std.map(function(o) o { metric: 'memory.usage', type: 'docker' }, $._allMetricsTemplate)
-  ,
-
-  // --- dashboard definition ---
-
-  accessRules: [
-    {
-      accessType: 'READ_WRITE',
-      relationType: 'USER',
-      relatedId: _config.instana.userId,
-    },
-    {
-      accessType: 'READ_WRITE',
-      relatedId: _config.instana.apiTokenRelationId,
-      relationType: 'API_TOKEN',
-    },
-  ],
+  accessRules: accessRules.accessRules,
 
   title: 'Demo / Kubernetes / Namespace: ' + _config.k8s.ns + ' / Label: ' + _config.k8s.pod.labelPrefix,
 
@@ -135,7 +33,7 @@ local tagFilterExpression = (import 'tagFilterExpressions.libsonnet') ;
         y1: {
           formatter: 'number.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, $._allMetricsDockerCpuTotalUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerCpuTotalUsage),
         },
         y2: {
           formatter: 'number.detailed',
@@ -286,7 +184,7 @@ local tagFilterExpression = (import 'tagFilterExpressions.libsonnet') ;
         y1: {
           formatter: 'number.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, $._allMetricsDockerCpuThrottlingCount),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerCpuThrottlingCount),
         },
         y2: {
           formatter: 'number.detailed',
@@ -309,7 +207,7 @@ local tagFilterExpression = (import 'tagFilterExpressions.libsonnet') ;
         y1: {
           formatter: 'number.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, $._allMetricsDockerCpuThrottlingCount),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, metrics.dockerCpuThrottlingCount),
         },
         y2: {
           formatter: 'number.detailed',
@@ -412,7 +310,7 @@ local tagFilterExpression = (import 'tagFilterExpressions.libsonnet') ;
         y1: {
           formatter: 'bytes.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, $._allMetricsDockerMemoryUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerMemoryUsage),
         },
         y2: {
           formatter: 'number.detailed',
@@ -434,7 +332,7 @@ local tagFilterExpression = (import 'tagFilterExpressions.libsonnet') ;
         y1: {
           formatter: 'bytes.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, $._allMetricsDockerMemoryUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, metrics.dockerMemoryUsage),
         },
         y2: {
           formatter: 'number.detailed',
