@@ -1,6 +1,6 @@
 local _config = import 'config-k8s.libsonnet';
 local metrics = import 'metrics-infrastructure.libsonnet';
-local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
+local filter = import 'tagFilterExpressions.libsonnet';
 
 {
   jvmHeapMemory: {
@@ -19,7 +19,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'jvm.heap.maxSize',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -30,7 +30,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'memory.used',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -64,7 +64,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'threads.new',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -75,7 +75,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'threads.runnable',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -86,7 +86,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'threads.timed-waiting',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -97,7 +97,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'threads.waiting',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -108,7 +108,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'threads.blocked',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -142,7 +142,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'gc.Copy.time',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -153,7 +153,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'gc.MarkSweepCompact.time',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -170,7 +170,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'gc.Copy.inv',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',

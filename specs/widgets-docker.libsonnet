@@ -1,6 +1,6 @@
 local _config = import 'config-k8s.libsonnet';
 local metrics = import 'metrics-infrastructure.libsonnet';
-local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
+local filter = import 'tagFilterExpressions.libsonnet';
 
 {
   cpuTotalUsageForK8sNamespace: {
@@ -15,7 +15,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
       y1: {
         formatter: 'number.detailed',
         renderer: 'line',
-        metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerCpuTotalUsage),
+        metrics: std.map(function(o) o { tagFilterExpression: filter.k8sNamespace.infra }, metrics.dockerCpuTotalUsage),
       },
       y2: {
         formatter: 'number.detailed',
@@ -40,7 +40,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
         metrics: [
           {
             metric: 'cpu.total_usage',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
+            tagFilterExpression: filter.k8sNamespaceAndPodLabel,
             grouping: [
               {
                 maxResults: 5,
@@ -81,7 +81,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
       y1: {
         formatter: 'number.detailed',
         renderer: 'line',
-        metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerCpuThrottlingCount),
+        metrics: std.map(function(o) o { tagFilterExpression: filter.k8sNamespace.infra }, metrics.dockerCpuThrottlingCount),
       },
       y2: {
         formatter: 'number.detailed',
@@ -104,7 +104,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
       y1: {
         formatter: 'number.detailed',
         renderer: 'line',
-        metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, metrics.dockerCpuThrottlingCount),
+        metrics: std.map(function(o) o { tagFilterExpression: filter.k8sNamespaceAndPodLabel }, metrics.dockerCpuThrottlingCount),
       },
       y2: {
         formatter: 'number.detailed',
@@ -125,7 +125,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
       y1: {
         formatter: 'bytes.detailed',
         renderer: 'line',
-        metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespace }, metrics.dockerMemoryUsage),
+        metrics: std.map(function(o) o { tagFilterExpression: filter.k8sNamespace.infra }, metrics.dockerMemoryUsage),
       },
       y2: {
         formatter: 'number.detailed',
@@ -148,7 +148,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
         y1: {
           formatter: 'bytes.detailed',
           renderer: 'line',
-          metrics: std.map(function(o) o { tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel }, metrics.dockerMemoryUsage),
+          metrics: std.map(function(o) o { tagFilterExpression: filter.k8sNamespaceAndPodLabel }, metrics.dockerMemoryUsage),
         },
         y2: {
           formatter: 'number.detailed',

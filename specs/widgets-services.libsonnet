@@ -1,6 +1,6 @@
 local _config = import 'config-k8s.libsonnet';
 local metrics = import 'metrics-infrastructure.libsonnet';
-local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
+local filter = import 'tagFilterExpressions.libsonnet';
 
 {
   latencyForK8sNamespace: {
@@ -19,7 +19,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'latency',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',
@@ -29,7 +29,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'latency',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'P75',
@@ -39,7 +39,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'latency',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'P90',
@@ -49,7 +49,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'latency',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'P95',
@@ -59,7 +59,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'latency',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'P98',
@@ -69,7 +69,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'latency',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'P99',
@@ -79,7 +79,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'latency',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MAX',
@@ -112,7 +112,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: '',
             metric: 'calls',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'SUM',
@@ -122,7 +122,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: 'red',
             metric: 'erroneousCalls',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'SUM',
@@ -155,7 +155,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           {
             color: 'red',
             metric: 'errors',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAP,
+            tagFilterExpression: filter.k8sNamespace.ap,
             timeShift: 0,
             compareToTimeShifted: false,
             aggregation: 'MEAN',

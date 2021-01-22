@@ -1,11 +1,11 @@
 local _config = (import 'config-instana.libsonnet') + (import 'config-k8s.libsonnet');
-local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
 local metrics = import 'metrics-infrastructure.libsonnet';
 local accessRules = import 'config-accessRules.libsonnet';
 local widgetsDocker = import 'widgets-docker.libsonnet';
 local widgetsPod = import 'widgets-pod.libsonnet';
 local widgetsJvm = import 'widgets-jvm.libsonnet';
 local widgetsServices = import 'widgets-services.libsonnet';
+local widgetsEvents = import 'widgets-events.libsonnet';
 
 {
   accessRules: accessRules.accessRules,
@@ -115,6 +115,25 @@ local widgetsServices = import 'widgets-services.libsonnet';
       height: 13,
       x: 8,
       y: 78,
+    },
+
+    widgetsEvents.pieForK8sNamespace {
+      width: 4,
+      height: 15,
+      x: 6,
+      y: 91,
+    },
+    widgetsEvents.linksForK8sNamespace {
+      width: 2,
+      height: 15,
+      x: 10,
+      y: 91,
+    },
+    widgetsEvents.timeseriesForK8sNamespace {
+      width: 6,
+      height: 15,
+      x: 0,
+      y: 91,
     },
   ],
 }

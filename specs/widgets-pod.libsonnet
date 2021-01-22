@@ -1,6 +1,6 @@
 local _config = import 'config-k8s.libsonnet';
 local metrics = import 'metrics-infrastructure.libsonnet';
-local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
+local filter = import 'tagFilterExpressions.libsonnet';
 
 {
   cpuRequestsAndLimitsForK8sNamespace: {
@@ -18,7 +18,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
         metrics: [
           {
             metric: 'cpuRequests',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             aggregation: 'SUM',
             label: 'CPU Requests',
@@ -27,7 +27,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           },
           {
             metric: 'cpuLimits',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             aggregation: 'SUM',
             label: 'CPU Limits',
@@ -60,7 +60,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
         metrics: [
           {
             metric: 'cpuRequests',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
+            tagFilterExpression: filter.k8sNamespaceAndPodLabel,
             grouping: [
               {
                 maxResults: 10,
@@ -105,7 +105,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
         metrics: [
           {
             metric: 'memoryRequests',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             aggregation: 'SUM',
             label: 'Memory Requests',
@@ -114,7 +114,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           },
           {
             metric: 'memory.limit',
-            tagFilterExpression: tagFilterExpression.k8sNamespace,
+            tagFilterExpression: filter.k8sNamespace.infra,
             timeShift: 0,
             aggregation: 'SUM',
             label: 'Memory Limits',
@@ -147,7 +147,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
         metrics: [
           {
             metric: 'memoryRequests',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
+            tagFilterExpression: filter.k8sNamespaceAndPodLabel,
             timeShift: 0,
             aggregation: 'SUM',
             label: 'CPU Memory',
@@ -156,7 +156,7 @@ local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
           },
           {
             metric: 'memoryLimits',
-            tagFilterExpression: tagFilterExpression.k8sNamespaceAndPodLabel,
+            tagFilterExpression: filter.k8sNamespaceAndPodLabel,
             timeShift: 0,
             aggregation: 'SUM',
             label: 'CPU Limits',

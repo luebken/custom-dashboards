@@ -1,5 +1,4 @@
 local _config = (import 'config-instana.libsonnet') + (import 'config-k8s.libsonnet');
-local tagFilterExpression = import 'tagFilterExpressions.libsonnet';
 local metrics = import 'metrics-infrastructure.libsonnet';
 local accessRules = import 'config-accessRules.libsonnet';
 local widgetsDocker = import 'widgets-docker.libsonnet';

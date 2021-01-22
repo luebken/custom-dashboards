@@ -1,18 +1,24 @@
 local _config = (import 'config-k8s.libsonnet');
 {
+
   k8sNamespace:: {
-    name: 'kubernetes.namespace.name',
-    type: 'TAG_FILTER',
-    value: _config.k8s.ns,
-    operator: 'EQUALS',
+    infra:: {
+      name: 'kubernetes.namespace.name',
+      type: 'TAG_FILTER',
+      value: _config.k8s.ns,
+      operator: 'EQUALS',
+    },
+    ap:: {
+      name: 'kubernetes.namespace',
+      type: 'TAG_FILTER',
+      value: 'robot-shop',
+      entity: 'DESTINATION',
+      operator: 'EQUALS',
+    },
+    dfq:: 'entity.kubernetes.namespace:robot-shop',
   },
-  k8sNamespaceAP:: {
-    name: 'kubernetes.namespace',
-    type: 'TAG_FILTER',
-    value: 'robot-shop',
-    entity: 'DESTINATION',
-    operator: 'EQUALS',
-  },
+
+
   k8sNamespaceAndPodLabel:: {
     logicalOperator: 'AND',
     elements: [
@@ -31,5 +37,4 @@ local _config = (import 'config-k8s.libsonnet');
     ],
     type: 'EXPRESSION',
   },
-
 }
