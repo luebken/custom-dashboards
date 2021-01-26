@@ -6,6 +6,7 @@ local widgetsPod = import 'widgets-pod.libsonnet';
 local widgetsJvm = import 'widgets-jvm.libsonnet';
 local widgetsServices = import 'widgets-services.libsonnet';
 local widgetsEvents = import 'widgets-events.libsonnet';
+local widgetsNodeJs = import 'widgets-nodejs.libsonnet';
 
 {
   accessRules: accessRules.accessRules,
@@ -134,6 +135,25 @@ local widgetsEvents = import 'widgets-events.libsonnet';
       height: 15,
       x: 0,
       y: 91,
+    },
+
+    widgetsNodeJs.gcActivity {
+      width: 4,
+      height: 15,
+      x: 4,
+      y: 106,
+    },
+    widgetsNodeJs.eventLoop {
+      width: 4,
+      height: 15,
+      x: 8,
+      y: 106,
+    },
+    widgetsNodeJs.memoryUsage {
+      width: 4,
+      height: 15,
+      x: 0,
+      y: 106,
     },
   ],
 }
