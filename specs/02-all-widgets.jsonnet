@@ -7,6 +7,7 @@ local widgetsJvm = import 'widgets-jvm.libsonnet';
 local widgetsServices = import 'widgets-services.libsonnet';
 local widgetsEvents = import 'widgets-events.libsonnet';
 local widgetsNodeJs = import 'widgets-nodejs.libsonnet';
+local widgetsProcess = import 'widgets-process.libsonnet';
 
 {
   accessRules: accessRules.accessRules,
@@ -154,6 +155,25 @@ local widgetsNodeJs = import 'widgets-nodejs.libsonnet';
       height: 15,
       x: 0,
       y: 106,
+    },
+
+    widgetsProcess.memory {
+      width: 4,
+      height: 15,
+      x: 4,
+      y: 121,
+    },
+    widgetsProcess.openfiles {
+      width: 4,
+      height: 15,
+      x: 8,
+      y: 121,
+    },
+    widgetsProcess.cpu {
+      width: 4,
+      height: 15,
+      x: 0,
+      y: 121,
     },
   ],
 }
