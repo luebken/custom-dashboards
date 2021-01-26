@@ -8,6 +8,7 @@ local widgetsServices = import 'widgets-services.libsonnet';
 local widgetsEvents = import 'widgets-events.libsonnet';
 local widgetsNodeJs = import 'widgets-nodejs.libsonnet';
 local widgetsProcess = import 'widgets-process.libsonnet';
+local widgetsWebsite = import 'widgets-website.libsonnet';
 
 {
   accessRules: accessRules.accessRules,
@@ -174,6 +175,25 @@ local widgetsProcess = import 'widgets-process.libsonnet';
       height: 15,
       x: 0,
       y: 121,
+    },
+
+    widgetsWebsite.pageload {
+      width: 4,
+      height: 15,
+      x: 4,
+      y: 136,
+    },
+    widgetsWebsite.requests {
+      width: 4,
+      height: 15,
+      x: 8,
+      y: 136,
+    },
+    widgetsWebsite.javascript {
+      width: 4,
+      height: 15,
+      x: 0,
+      y: 136,
     },
   ],
 }
