@@ -14,7 +14,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
     config: {
       y1: {
         formatter: 'number.detailed',
-        renderer: 'stackedBar',
+        renderer: 'line',
         metrics: [
           {
             metric: 'cpuRequests',
@@ -56,7 +56,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
     config: {
       y1: {
         formatter: 'number.detailed',
-        renderer: 'stackedBar',
+        renderer: 'line',
         metrics: [
           {
             metric: 'cpuRequests',
@@ -101,7 +101,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
     config: {
       y1: {
         formatter: 'bytes.detailed',
-        renderer: 'stackedBar',
+        renderer: 'line',
         metrics: [
           {
             metric: 'memoryRequests',
@@ -143,7 +143,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
     config: {
       y1: {
         formatter: 'bytes.detailed',
-        renderer: 'stackedBar',
+        renderer: 'line',
         metrics: [
           {
             metric: 'memoryRequests',
