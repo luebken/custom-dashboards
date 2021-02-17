@@ -86,4 +86,8 @@
   dockerCpuTotalUsage:: std.map(function(o) o { metric: 'cpu.total_usage', type: 'docker' }, $._allMetricsTemplate),
   dockerCpuThrottlingCount:: std.map(function(o) o { metric: 'cpu.throttling_count', type: 'docker' }, $._allMetricsTemplate),
   dockerMemoryUsage:: std.map(function(o) o { metric: 'memory.usage', type: 'docker' }, $._allMetricsTemplate),
+  
+  containerdCpuTotalUsage:: std.map(function(o) o { metric: 'cpu.total_usage', type: 'containerd' }, $._allMetricsTemplate),
+  containerdCpuThrottlingCount:: std.map(function(o) o { metric: 'cpu.throttling_count', type: 'containerd' }, $._allMetricsTemplate),
+  containerdMemoryUsage:: std.map(function(o) o { metric: 'memory.usage', type: 'containerd' }, $._allMetricsTemplate),
 }
