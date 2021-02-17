@@ -11,11 +11,11 @@ local _config = (import 'config-k8s.libsonnet');
     ap:: {
       name: 'kubernetes.namespace',
       type: 'TAG_FILTER',
-      value: 'robot-shop',
+      value: _config.k8s.ns,
       entity: 'DESTINATION',
       operator: 'EQUALS',
     },
-    dfq:: 'entity.kubernetes.namespace:robot-shop',
+    dfq:: 'entity.kubernetes.namespace:'+_config.k8s.ns,
   },
 
 
