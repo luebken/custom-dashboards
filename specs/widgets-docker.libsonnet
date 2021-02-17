@@ -4,7 +4,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
 
 {
   cpuTotalUsageForK8sNamespace: {
-    id: 'random-id-0000002',
+    id: 'docker-id-0000002',
     title: 'Docker CPU Usage (Total)',
     width: '<NEEDS TO BE SET>',
     height: '<NEEDS TO BE SET>',
@@ -26,7 +26,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
     },
   },
   cpuTotalUsageForK8sPodLabel: {
-    id: 'random-id-0000003',
+    id: 'docker-id-0000003',
     title: 'Docker CPU Usage ("' + _config.k8s.pod.labelPrefix + '")',
     width: '<NEEDS TO BE SET>',
     height: '<NEEDS TO BE SET>',
@@ -70,7 +70,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
     },
   },
   cpuThrottlingCountForK8sNamespace: {
-    id: 'random-id-0000006',
+    id: 'docker-id-0000006',
     title: 'Docker CPU Throttling',
     width: '<NEEDS TO BE SET>',
     height: '<NEEDS TO BE SET>',
@@ -92,7 +92,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
     },
   },
   cpuThrottlingCountForK8sPodLabel: {
-    id: 'random-id-0000007',
+    id: 'docker-id-0000007',
     width: '<NEEDS TO BE SET>',
     height: '<NEEDS TO BE SET>',
     x: '<NEEDS TO BE SET>',
@@ -114,7 +114,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
     },
   },
   memoryUsageForK8sNamespace: {
-    id: 'random-id-0000010',
+    id: 'docker-id-0000010',
     title: 'Docker Memory Usage',
     width: '<NEEDS TO BE SET>',
     height: '<NEEDS TO BE SET>',
@@ -137,7 +137,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
   },
   memoryUsageForK8sPodLabel:
     {
-      id: 'random-id-0000011',
+      id: 'docker-id-0000011',
       title: 'Docker Memory Usage ("' + _config.k8s.pod.labelPrefix + '")',
       width: '<NEEDS TO BE SET>',
       height: '<NEEDS TO BE SET>',
