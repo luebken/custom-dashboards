@@ -9,6 +9,7 @@ local widgetsEvents = import 'widgets-events.libsonnet';
 local widgetsNodeJs = import 'widgets-nodejs.libsonnet';
 local widgetsProcess = import 'widgets-process.libsonnet';
 local widgetsWebsite = import 'widgets-website.libsonnet';
+local widgetsContainerd = import 'widgets-containerd.libsonnet';
 
 {
   accessRules: accessRules.accessRules,
@@ -195,5 +196,19 @@ local widgetsWebsite = import 'widgets-website.libsonnet';
       x: 0,
       y: 136,
     },
+
+    widgetsContainerd.cpuTotalUsageForK8sNamespace {
+      width: 6,
+      height: 15,
+      x: 0,
+      y: 160,
+    },
+    widgetsContainerd.cpuTotalUsageForK8sPodLabel {
+      width: 6,
+      height: 15,
+      x: 6,
+      y: 160,
+    },
+
   ],
 }
