@@ -26,7 +26,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
                 by: {
                   groupbyTag: 'kubernetes.pod.label',
                   groupbyTagEntity: 'DESTINATION',
-                  groupbyTagSecondLevelKey: 'service',
+                  groupbyTagSecondLevelKey: _config.k8s.pod.labelKey,
                 },
                 includeOthers: true,
                 direction: 'DESC',
