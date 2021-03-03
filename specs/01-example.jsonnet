@@ -3,24 +3,24 @@ local metrics = import 'metrics-infrastructure.libsonnet';
 local accessRules = import 'config-accessRules.libsonnet';
 local widgetsDocker = import 'widgets-docker.libsonnet';
 local widgetsPod = import 'widgets-pod.libsonnet';
+local filter = import 'tagFilterExpressions.libsonnet';
 
 {
   accessRules: accessRules.accessRules,
 
-  title: 'Demo / Kubernetes / Namespace: ' + _config.k8s.ns + ' / Label: ' + _config.k8s.pod.labelPrefix,
+  title: '🍿 Demo / Kubernetes / Namespace: ' + _config.k8s.ns + ' / Label: ' + _config.k8s.pod.labelPrefix,
 
   widgets: [
     {
       id: 'random-id-0000001',
-      title: 'Demo / Kubernetes / Namespace: ' + _config.k8s.ns + ' / Label: ' + _config.k8s.pod.labelPrefix,
+      title: '🍿 Demo / Kubernetes / Namespace: ' + _config.k8s.ns + ' / Label: ' + _config.k8s.pod.labelPrefix,
       width: 12,
       height: 6,
       x: 0,
       y: 0,
       type: 'markdown',
-      config: 'This is a demo dashboard to highlight custom dashboards for a Kubernetes namespace and pod label.'
-              + ' The original definition of the dashboard can be found [here](https://github.com/luebken/custom-dashboards/blob/master/specs/01-k8s-podlabel.libsonnet)\n\n'
-              + 'Links:\n[Hosts Map](' + _config.instana.baseUrl + '/#/physical?q=entity.kubernetes.namespace%3A' + _config.k8s.ns + ') - [Container Map](' + _config.instana.baseUrl + '/#/container?q=entity.kubernetes.namespace%3A' + _config.k8s.ns + ') – [Analyze Calls](' + _config.instana.baseUrl + '/#/analyze;callList.dataSource=calls;callList.groupBy=(name~kubernetes.service.name~entity~DESTINATION)~;callList.tagFilter=!(name~kubernetes.namespace~value~' + _config.k8s.ns + '~operator~EQUALS~entity~DESTINATION)~;callList.showGraph=true;ua2=false)\n---',
+      config: '![Image](https://instana.io/assets/2122732687/favicon-16x16.png) This is a demo dashboard to highlight custom dashboards for a Kubernetes namespace __' + _config.k8s.ns + '__ on the cluster __' + _config.k8s.cluster + '__ and for the pods __' + _config.k8s.pod.labelPrefix + '__. The original definition of the dashboard can be found [here](https://github.com/luebken/custom-dashboards/).\n\n'
+              + 'Links:\n[Hosts Map](' + _config.instana.baseUrl + '/#/physical?q=entity.kubernetes.namespace%3A' + _config.k8s.ns + '%20entity.kubernetes.cluster.label%3A' + _config.k8s.cluster + ') - [Container Map](' + _config.instana.baseUrl + '/#/container?q=' + filter.k8sNamespace.dfq + ') – [Analyze Calls](' + _config.instana.baseUrl + '/#/analyze;dataSource=calls;' + filter.k8sNamespace.analyze + ';' + filter.k8sNamespace.analyzeGroupBy + ')\n---',
     },
 
     widgetsDocker.cpuTotalUsageForK8sNamespace {
