@@ -3,9 +3,54 @@ local metrics = import 'metrics-infrastructure.libsonnet';
 local filter = import 'tagFilterExpressions.libsonnet';
 
 {
-  latencyForK8sNamespace: {
+  latencyForK8sNamespaceByLabel: {
     id: 'VwkQP7OxRldrlMo6',
-    title: 'Latency',
+    title: 'Latency  ("' + _config.k8s.pod.labelKey + '")',
+    width: '<NEEDS TO BE SET>',
+    height: '<NEEDS TO BE SET>',
+    x: '<NEEDS TO BE SET>',
+    y: '<NEEDS TO BE SET>',
+    type: 'chart',
+    config: {
+      y1: {
+        formatter: 'millis.detailed',
+        renderer: 'line',
+        metrics: [
+          {
+            color: '',
+            metric: 'latency',
+            tagFilterExpression: filter.k8sNamespace.ap,
+            grouping: [
+              {
+                maxResults: 5,
+                by: {
+                  groupbyTag: 'kubernetes.pod.label',
+                  groupbyTagEntity: 'DESTINATION',
+                  groupbyTagSecondLevelKey: 'service',
+                },
+                includeOthers: true,
+                direction: 'DESC',
+              },
+            ],
+            timeShift: 0,
+            compareToTimeShifted: false,
+            aggregation: 'P99',
+            label: '99th',
+            source: 'APPLICATION',
+          },
+        ],
+      },
+      y2: {
+        formatter: 'number.detailed',
+        renderer: 'line',
+        metrics: [],
+      },
+      type: 'TIME_SERIES',
+    },
+  },
+  latencyForK8sNamespace: {
+    id: 'VwkQP7OxRldrl1231',
+    title: 'Latency  (Total)',
     width: '<NEEDS TO BE SET>',
     height: '<NEEDS TO BE SET>',
     x: '<NEEDS TO BE SET>',
@@ -98,7 +143,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
   },
   callsForK8sNamespace: {
     id: '7rapG7UymqG8L67I',
-    title: 'Calls',
+    title: 'Calls (Total)',
     width: '<NEEDS TO BE SET>',
     height: '<NEEDS TO BE SET>',
     x: '<NEEDS TO BE SET>',
@@ -141,7 +186,7 @@ local filter = import 'tagFilterExpressions.libsonnet';
   },
   errorsForK8sNamespace: {
     id: '9joWoy127iAE12Hh',
-    title: 'Erroneous Calls Rate',
+    title: 'Erroneous Calls Rate in ' + _config.k8s.ns,
     width: '<NEEDS TO BE SET>',
     height: '<NEEDS TO BE SET>',
     x: '<NEEDS TO BE SET>',

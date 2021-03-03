@@ -3,6 +3,7 @@ local metrics = import 'metrics-infrastructure.libsonnet';
 local accessRules = import 'config-accessRules.libsonnet';
 local widgetsDocker = import 'widgets-docker.libsonnet';
 local widgetsPod = import 'widgets-pod.libsonnet';
+local widgetsServices = import 'widgets-services.libsonnet';
 local filter = import 'tagFilterExpressions.libsonnet';
 
 {
@@ -23,69 +24,88 @@ local filter = import 'tagFilterExpressions.libsonnet';
               + 'Links:\n[Hosts Map](' + _config.instana.baseUrl + '/#/physical?q=entity.kubernetes.namespace%3A' + _config.k8s.ns + '%20entity.kubernetes.cluster.label%3A' + _config.k8s.cluster + ') - [Container Map](' + _config.instana.baseUrl + '/#/container?q=' + filter.k8sNamespace.dfq + ') – [Analyze Calls](' + _config.instana.baseUrl + '/#/analyze;dataSource=calls;' + filter.k8sNamespace.analyze + ';' + filter.k8sNamespace.analyzeGroupBy + ')\n---',
     },
 
+    widgetsServices.callsForK8sNamespace {
+      width: 4,
+      height: 12,
+      x: 0,
+      y: 6,
+    },
+    widgetsServices.latencyForK8sNamespace {
+      width: 4,
+      height: 12,
+      x: 4,
+      y: 6,
+    },
+    widgetsServices.latencyForK8sNamespaceByLabel {
+      width: 4,
+      height: 12,
+      x: 8,
+      y: 6,
+    },
+
     widgetsDocker.cpuTotalUsageForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
-      y: 6,
+      y: 19,
     },
     widgetsDocker.cpuTotalUsageForK8sPodLabel {
       width: 6,
       height: 13,
       x: 6,
-      y: 6,
+      y: 19,
     },
 
     widgetsPod.cpuRequestsAndLimitsForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
-      y: 19,
+      y: 32,
     },
     widgetsPod.cpuRequestsForK8sPodLabels {
       width: 6,
       height: 13,
       x: 6,
-      y: 19,
+      y: 32,
     },
 
     widgetsDocker.cpuThrottlingCountForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
-      y: 32,
+      y: 45,
     },
     widgetsDocker.cpuThrottlingCountForK8sPodLabel {
       width: 6,
       height: 13,
       x: 6,
-      y: 32,
+      y: 45,
     },
 
     widgetsPod.memoryRequestsAndLimitsForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
-      y: 45,
+      y: 59,
     },
     widgetsPod.memoryRequestsAndLimitsForK8sPodLabel {
       width: 6,
       height: 13,
       x: 6,
-      y: 45,
+      y: 59,
     },
 
     widgetsDocker.memoryUsageForK8sNamespace {
       width: 6,
       height: 13,
       x: 0,
-      y: 59,
+      y: 72,
     },
     widgetsDocker.memoryUsageForK8sPodLabel {
       width: 6,
       height: 13,
       x: 6,
-      y: 59,
+      y: 72,
     },
   ],
 }
