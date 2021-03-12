@@ -14,11 +14,10 @@
 ## Create the Jssonet
 
 * Create a custom dashboard.
-* Optional: share the dashboard
+* Share the dashboard
 * Copy the dashboard definition via "Edit as Json"
 * Save the file as `my-dashboard.jsonnet` and format it with `jsonnetfmt`
-
-* remove the id and choose a new name e.g. my-dashboard
+* Remove the `id` and choose a new title e.g. `title: 'my-dashboard'`
 
 ## Modularization
 
@@ -37,7 +36,7 @@ timeShift: 0
 ```
 * Create a new file `filter-expressions.libsonnet`
 * Copy over the Json Subtree
-* Create a valid json by enclosing it with {}
+* Create a valid Json by enclosing it with {}
 * Give the key a represenative name and use "::" as the separator to export it:
 ```
 {
@@ -49,7 +48,7 @@ timeShift: 0
   },
 }
 ```
-* In the main dashboard file import the extracted file at the top:
+* In `my-dashboard.jsonnet` import the extracted file at the top:
 ```
 local filter = import 'filter-expressions.libsonnet';
 
@@ -74,7 +73,7 @@ timeShift: 0
 ```
 export MY_DEPLOYMENT_NAME=my-deployment
 ```
-* Replace the value with `std.extVar('MY_DEPLOYMENT_NAME')`
+* Replace the value with `std.extVar('MY_DEPLOYMENT_NAME')` in `filter-expressions.libsonnet`:  
 
 ```
 {
@@ -89,9 +88,12 @@ export MY_DEPLOYMENT_NAME=my-deployment
 
 ## Create Json
 
+```
 jsonnet my-dashboard.jsonnet --ext-str MY_DEPLOYMENT_NAME > my-dashboard.json
+```
 
 ## Upload Dashboard
 
+```
 curl --request POST --url ${INSTANA_BASE_URL}/api/custom-dashboard --header "authorization: apiToken ${INSTANA_API_TOKEN}" --header 'content-type: application/json' --data @my-dashboard.json
-
+```
