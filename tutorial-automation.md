@@ -7,7 +7,7 @@
 ## Configuration Paramaters
 
 * INSTANA_BASE_URL
-* INSTANA_API_TOKEN
+* INSTANA_API_TOKEN (with canCreatePublicCustomDashboards)
 * MY_DEPLOYMENT_NAME (see below)
 
 
