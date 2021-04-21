@@ -1,4 +1,4 @@
-# How to automate your custom dashbaords creation (DRAFT)
+# How to automate your custom dashboards creation (DRAFT)
 
 ## Prerequisites
 
