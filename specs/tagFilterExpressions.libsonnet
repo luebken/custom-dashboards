@@ -1,7 +1,17 @@
-local _config = (import 'config-k8s.libsonnet');
+local _config = (import 'config-instana.libsonnet') + (import 'config-host.libsonnet');
 {
 
   //TODO needs proper filter / groupBy differentiation
+
+  host:: {
+    fqdn::
+      {
+        name: 'host.fqdn',
+        type: 'TAG_FILTER',
+        value: _config.host.fqdn,
+        operator: 'EQUALS',
+      },
+  },
 
   k8sNamespace:: {
     infra::

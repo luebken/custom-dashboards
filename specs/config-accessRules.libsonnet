@@ -11,5 +11,10 @@ local _config = (import 'config-instana.libsonnet');
       relatedId: _config.instana.apiTokenRelationId,
       relationType: 'API_TOKEN',
     },
+    {
+      accessType: 'READ',
+      relationType: 'GLOBAL',
+      relatedId: '',
+    },
   ],
 }
