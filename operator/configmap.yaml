@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: instana-customdashboard-config-1
+  labels:
+    instana: dashboard-config
+data:
+  dashboard.json: |
+    {
+      "title": "Managed Dashboard: Test",
+      "accessRules": [
+        {
+          "accessType": "READ_WRITE",
+          "relationType": "USER",
+          "relatedId": "5ee8a3e8cd70020001ecb007"
+        }
+      ],
+      "widgets": [
+        {
+          "id": "HdUf1_3G4vAg3C41",
+          "title": "Docker",
+          "width": 3,
+          "height": 13,
+          "x": 0,
+          "y": 6,
+          "type": "chart",
+          "config": {
+            "shareMaxAxisDomain": false,
+            "y1": {
+              "formatter": "number.detailed",
+              "renderer": "line",
+              "metrics": [
+                {
+                  "color": "",
+                  "metric": "cpu.total_usage",
+                  "tagFilterExpression": {
+                    "logicalOperator": "OR",
+                    "elements": [],
+                    "type": "EXPRESSION"
+                  },
+                  "timeShift": 0,
+                  "compareToTimeShifted": false,
+                  "aggregation": "MEAN",
+                  "label": "",
+                  "source": "INFRASTRUCTURE_METRICS",
+                  "type": "docker"
+                }
+              ]
+            },
+            "y2": {
+              "formatter": "number.detailed",
+              "renderer": "line",
+              "metrics": []
+            },
+            "type": "TIME_SERIES"
+          }
+        },
+        {
+          "id": "-yYb5FOnx0S4sfdy",
+          "title": "Info",
+          "width": 3,
+          "height": 6,
+          "x": 0,
+          "y": 0,
+          "type": "markdown",
+          "config": "Don't edit. This is a managed dashboard. "
+        }
+      ],
+      "writable": true
+    }

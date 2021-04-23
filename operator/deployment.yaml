@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cd-mgr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cd-mgr
+  template:
+    metadata:
+      labels:
+        app: cd-mgr
+    spec:
+      containers:
+      - name: cd-mgr
+        image: luebken/cd-mgr
+        env:
+          - name: INSTANA_BASE_URL
+            valueFrom:
+               secretKeyRef:
+                   name: cd-mgr-secret
+                   key: INSTANA_BASE_URL
+          - name: INSTANA_API_TOKEN
+            valueFrom:
+               secretKeyRef:
+                   name: cd-mgr-secret
+                   key: INSTANA_API_TOKEN
