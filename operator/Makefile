@@ -1,5 +1,5 @@
 setup:
-	kubectl create clusterrolebinding default-view --clusterrole=view --serviceaccount=default:default
+	kubectl create clusterrolebinding default-view --clusterrole=customdashboard-crd --serviceaccount=default:default
 	kubectl create secret generic cd-mgr-secret --from-literal=INSTANA_API_TOKEN=$INSTANA_API_TOKEN --from-literal=INSTANA_BASE_URL=$INSTANA_BASE_URL
 	kubectl create -f configmap.yaml
 
