@@ -1,6 +1,16 @@
-domain: custom.instana.io
+domain: instana.io
 layout:
 - go.kubebuilder.io/v3
 projectName: operator
-repo: custom.instana.io/customdashboard
+repo: github.com/luebken/custom-dashboards
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: instana.io
+  group: custom
+  kind: Dashboard
+  path: github.com/luebken/custom-dashboards/api/v1
+  version: v1
 version: "3"

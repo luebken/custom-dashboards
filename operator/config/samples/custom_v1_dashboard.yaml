@@ -1,0 +1,7 @@
+apiVersion: custom.instana.io/v1
+kind: Dashboard
+metadata:
+  name: dashboard-sample
+spec:
+  # Add fields here
+  foo: bar

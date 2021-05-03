@@ -8,4 +8,4 @@ webhook:
   port: 9443
 leaderElection:
   leaderElect: true
-  resourceName: 6c050a8e.custom.instana.io
+  resourceName: facc7a0c.instana.io
