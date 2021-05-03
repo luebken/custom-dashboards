@@ -48,8 +48,9 @@ type DashboardReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.7.2/pkg/reconcile
 func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = r.Log.WithValues("dashboard", req.NamespacedName)
+	l := r.Log.WithValues("dashboard", req.NamespacedName)
 
+	l.Info("Hello from MDL")
 	// your logic here
 
 	return ctrl.Result{}, nil
