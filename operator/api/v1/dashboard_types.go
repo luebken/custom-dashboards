@@ -20,16 +20,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // DashboardSpec defines the desired state of Dashboard
 type DashboardSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of Dashboard. Edit dashboard_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// TODO move into secret
+	InstanaApiToken string `json:"instana-api-token"`
+	// TODO move into secret
+	InstanaApiTokenRelationId string `json:"instana-api-token-relation-id"`
+	// TODO move into secret
+	InstanaUserId string `json:"instana-user-id"`
+	// TODO move into secret
+	InstanaBaseUrl string `json:"instana-base-url"`
+	// Config the json definition of the custom dashoard
+	Config string `json:"config,omitempty"`
 }
 
 // DashboardStatus defines the observed state of Dashboard

@@ -3,5 +3,70 @@ kind: Dashboard
 metadata:
   name: dashboard-sample
 spec:
-  # Add fields here
-  foo: bar
+  instana-api-token: XXX
+  instana-api-token-relation-id: ae2cf441-e09a-422e-b563-4df3434f2dbd
+  instana-user-id: 5ee8a3e8cd70020001ecb007
+  instana-base-url: https://test-instana.pink.instana.rocks
+  config: |
+    {
+      "title": "Managed Dashboard: Tests",
+      "accessRules": [
+        {
+          "accessType": "READ_WRITE",
+          "relationType": "USER",
+          "relatedId": "5ee8a3e8cd70020001ecb007"
+        }
+      ],
+      "widgets": [
+        {
+          "id": "HdUf1_3G4vAg3C41",
+          "title": "Docker",
+          "width": 3,
+          "height": 13,
+          "x": 0,
+          "y": 6,
+          "type": "chart",
+          "config": {
+            "shareMaxAxisDomain": false,
+            "y1": {
+              "formatter": "number.detailed",
+              "renderer": "line",
+              "metrics": [
+                {
+                  "color": "",
+                  "metric": "cpu.total_usage",
+                  "tagFilterExpression": {
+                    "logicalOperator": "OR",
+                    "elements": [],
+                    "type": "EXPRESSION"
+                  },
+                  "timeShift": 0,
+                  "compareToTimeShifted": false,
+                  "aggregation": "MEAN",
+                  "label": "",
+                  "source": "INFRASTRUCTURE_METRICS",
+                  "type": "docker"
+                }
+              ]
+            },
+            "y2": {
+              "formatter": "number.detailed",
+              "renderer": "line",
+              "metrics": []
+            },
+            "type": "TIME_SERIES"
+          }
+        },
+        {
+          "id": "-yYb5FOnx0S4sfdy",
+          "title": "Info",
+          "width": 3,
+          "height": 6,
+          "x": 0,
+          "y": 0,
+          "type": "markdown",
+          "config": "Don't edit. This is a managed dashboard. "
+        }
+      ],
+      "writable": true
+    }

@@ -48,10 +48,22 @@ type DashboardReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.7.2/pkg/reconcile
 func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	l := r.Log.WithValues("dashboard", req.NamespacedName)
+	log := r.Log.WithValues("dashboard", req.NamespacedName)
 
-	l.Info("Hello from MDL")
-	// your logic here
+	log.Info("Reconcile called")
+
+	var dashboard customv1.Dashboard
+	if err := r.Get(ctx, req.NamespacedName, &dashboard); err != nil {
+		log.Error(err, "unable to fetch Dashboard")
+		// we'll ignore not-found errors, since they can't be fixed by an immediate requeue
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+	log.Info("Got dashboard named '" + dashboard.Name + "'")
+	log.Info("dashboard.Spec.InstanaUserId '" + dashboard.Spec.InstanaUserId + "'")
+	log.Info("dashboard.Spec.InstanaApiToken '" + dashboard.Spec.InstanaApiToken + "'")
+	log.Info("dashboard.Spec.InstanaApiTokenRelationId '" + dashboard.Spec.InstanaApiTokenRelationId + "'")
+	log.Info("dashboard.Spec.InstanaBaseUrl '" + dashboard.Spec.InstanaBaseUrl + "'")
+	//log.Info("dashboard.Spec.Config '" + dashboard.Spec.Config + "'")
 
 	return ctrl.Result{}, nil
 }

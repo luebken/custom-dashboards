@@ -36,10 +36,26 @@ spec:
           spec:
             description: DashboardSpec defines the desired state of Dashboard
             properties:
-              foo:
-                description: Foo is an example field of Dashboard. Edit dashboard_types.go
-                  to remove/update
+              config:
+                description: Config the json definition of the custom dashoard
                 type: string
+              instana-api-token:
+                description: TODO move into secret
+                type: string
+              instana-api-token-relation-id:
+                description: TODO move into secret
+                type: string
+              instana-base-url:
+                description: TODO move into secret
+                type: string
+              instana-user-id:
+                description: TODO move into secret
+                type: string
+            required:
+            - instana-api-token
+            - instana-api-token-relation-id
+            - instana-base-url
+            - instana-user-id
             type: object
           status:
             description: DashboardStatus defines the observed state of Dashboard
