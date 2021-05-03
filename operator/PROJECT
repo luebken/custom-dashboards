@@ -1,0 +1,6 @@
+domain: custom.instana.io
+layout:
+- go.kubebuilder.io/v3
+projectName: operator
+repo: custom.instana.io/customdashboard
+version: "3"
