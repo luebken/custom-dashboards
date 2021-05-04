@@ -44,7 +44,8 @@ type DashboardStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
-
+//+kubebuilder:printcolumn:name="Dashboard-Id",type=string,JSONPath=`.status.dashboard-id`
+//+kubebuilder:printcolumn:name="Dashboard-Title",type=string,JSONPath=`.status.dashboard-title`
 // Dashboard is the Schema for the dashboards API
 type Dashboard struct {
 	metav1.TypeMeta   `json:",inline"`
