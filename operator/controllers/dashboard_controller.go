@@ -70,7 +70,7 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		return ctrl.Result{}, nil
 	}
 
-	var apiResponse = callInstanaApi(dashboard, log)
+	var apiResponse = createDashboardInInstana(dashboard, log)
 	dashboard.Status.DashboardId = apiResponse.Id
 	dashboard.Status.DashboardTitle = apiResponse.Title
 
@@ -90,7 +90,7 @@ func (r *DashboardReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Complete(r)
 }
 
-func callInstanaApi(dashboard customv1.Dashboard, log logr.Logger) InstanaApiResponse {
+func createDashboardInInstana(dashboard customv1.Dashboard, log logr.Logger) InstanaApiResponse {
 	log.Info("Creating dashboard")
 
 	instanaUrl := dashboard.Spec.InstanaBaseUrl + "/api/custom-dashboard"
