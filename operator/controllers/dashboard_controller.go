@@ -23,6 +23,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	corev1 "k8s.io/api/core/v1"
+
 	"github.com/go-logr/logr"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -42,6 +44,10 @@ type InstanaApiResponse struct {
 	Id    string `json:"id"`
 	Title string `json:"title"`
 }
+type InstanaApiConfig struct {
+	ApiToken string
+	BaseUrl  string
+}
 
 //+kubebuilder:rbac:groups=custom.instana.io,resources=dashboards,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=custom.instana.io,resources=dashboards/status,verbs=get;update;patch
@@ -54,8 +60,19 @@ type InstanaApiResponse struct {
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.7.2/pkg/reconcile
 func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	log := r.Log.WithValues("dashboard", req.NamespacedName)
-
 	log.Info("Reconcile called")
+
+	// Read Instana API Config
+	cm := &corev1.ConfigMap{}
+	_ = r.Client.Get(context.Background(), client.ObjectKey{
+		Namespace: "default",
+		Name:      "instana-custom-dashboard-config",
+	}, cm)
+	var instanaApiConfig InstanaApiConfig
+	instanaApiConfig.ApiToken = cm.Data["instana-api-token"]
+	instanaApiConfig.BaseUrl = cm.Data["instana-base-url"]
+	log.Info("instana-base-url: " + instanaApiConfig.BaseUrl)
+
 	var dashboard customv1.Dashboard
 	if err := r.Get(ctx, req.NamespacedName, &dashboard); err != nil {
 		log.Info("Unable to fetch Dashboard")
@@ -70,7 +87,7 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		return ctrl.Result{}, nil
 	}
 
-	var apiResponse = createDashboardInInstana(dashboard, log)
+	var apiResponse = createDashboardInInstana(dashboard, instanaApiConfig, log)
 	dashboard.Status.DashboardId = apiResponse.Id
 	dashboard.Status.DashboardTitle = apiResponse.Title
 
@@ -90,10 +107,10 @@ func (r *DashboardReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Complete(r)
 }
 
-func createDashboardInInstana(dashboard customv1.Dashboard, log logr.Logger) InstanaApiResponse {
+func createDashboardInInstana(dashboard customv1.Dashboard, apiConfig InstanaApiConfig, log logr.Logger) InstanaApiResponse {
 	log.Info("Creating dashboard")
 
-	instanaUrl := dashboard.Spec.InstanaBaseUrl + "/api/custom-dashboard"
+	instanaUrl := apiConfig.BaseUrl + "/api/custom-dashboard"
 	var jsonStr = []byte(dashboard.Spec.Config)
 	client := &http.Client{}
 	req2, err := http.NewRequest("POST", instanaUrl, bytes.NewBuffer(jsonStr))
@@ -102,7 +119,7 @@ func createDashboardInInstana(dashboard customv1.Dashboard, log logr.Logger) Ins
 	}
 	req2.Header.Add("Accept", "application/json")
 	req2.Header.Set("Content-Type", "application/json")
-	req2.Header.Add("authorization", "apiToken "+dashboard.Spec.InstanaApiToken)
+	req2.Header.Add("authorization", "apiToken "+apiConfig.ApiToken)
 	resp, err := client.Do(req2)
 	if err != nil {
 		log.Info(err.Error())

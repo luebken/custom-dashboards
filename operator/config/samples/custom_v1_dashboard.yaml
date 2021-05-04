@@ -3,13 +3,11 @@ kind: Dashboard
 metadata:
   name: dashboard-sample
 spec:
-  instana-api-token: XXX
   instana-api-token-relation-id: ae2cf441-e09a-422e-b563-4df3434f2dbd
   instana-user-id: 5ee8a3e8cd70020001ecb007
-  instana-base-url: https://test-instana.pink.instana.rocks
   config: |
     {
-      "title": "! Managed Dashboard: Test Sample",
+      "title": "! Managed Dashboard: Test Sample2",
       "accessRules": [
         {
           "accessType": "READ_WRITE",

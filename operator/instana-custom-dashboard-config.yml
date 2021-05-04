@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: instana-custom-dashboard-config
+data:
+  instana-base-url: XXX
+  instana-api-token: XXX

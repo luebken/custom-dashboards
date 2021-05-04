@@ -23,13 +23,9 @@ import (
 // DashboardSpec defines the desired state of Dashboard
 type DashboardSpec struct {
 	// TODO move into secret
-	InstanaApiToken string `json:"instana-api-token"`
-	// TODO move into secret
 	InstanaApiTokenRelationId string `json:"instana-api-token-relation-id"`
 	// TODO move into secret
 	InstanaUserId string `json:"instana-user-id"`
-	// TODO move into secret
-	InstanaBaseUrl string `json:"instana-base-url"`
 	// Config the json definition of the custom dashoard
 	Config string `json:"config,omitempty"`
 }
