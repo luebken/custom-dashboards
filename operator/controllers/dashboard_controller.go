@@ -45,10 +45,6 @@ type DashboardReconciler struct {
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
-// TODO(user): Modify the Reconcile function to compare the state specified by
-// the Dashboard object against the actual cluster state, and then
-// perform operations to make the cluster state reflect the state specified by
-// the user.
 //
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.7.2/pkg/reconcile
@@ -56,19 +52,21 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	log := r.Log.WithValues("dashboard", req.NamespacedName)
 
 	log.Info("Reconcile called")
-
 	var dashboard customv1.Dashboard
 	if err := r.Get(ctx, req.NamespacedName, &dashboard); err != nil {
-		log.Error(err, "unable to fetch Dashboard")
+		log.Error(err, "Unable to fetch Dashboard")
 		// we'll ignore not-found errors, since they can't be fixed by an immediate requeue
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
 	log.Info("Got dashboard named '" + dashboard.Name + "'")
-	log.Info("dashboard.Spec.InstanaUserId '" + dashboard.Spec.InstanaUserId + "'")
-	log.Info("dashboard.Spec.InstanaApiToken '" + dashboard.Spec.InstanaApiToken + "'")
-	log.Info("dashboard.Spec.InstanaApiTokenRelationId '" + dashboard.Spec.InstanaApiTokenRelationId + "'")
+
+	if dashboard.Status.DashboardId != "" {
+		//TODO sync with actual state in instana.
+		log.Info("Dashboard Status has a DashboardId: " + dashboard.Status.DashboardId + ". Skipping it.")
+		return ctrl.Result{}, nil
+	}
+
 	instanaUrl := dashboard.Spec.InstanaBaseUrl + "/api/custom-dashboard"
-	log.Info("dashboard.Spec.InstanaBaseUrl '" + instanaUrl + "'")
 	var jsonStr = []byte(dashboard.Spec.Config)
 
 	type Response struct {
@@ -76,7 +74,7 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		Title string `json:"title"`
 	}
 
-	fmt.Printf("Creating Dashboard %+v\n", dashboard.Spec.Config)
+	//fmt.Printf("Creating Dashboard %+v\n", dashboard.Spec.Config)
 
 	client := &http.Client{}
 	req2, err := http.NewRequest("POST", instanaUrl, bytes.NewBuffer(jsonStr))
@@ -96,10 +94,21 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		fmt.Print(err.Error())
 	}
 	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
+	fmt.Printf("response bodyBytes:%+v\n", string(bodyBytes))
 	var responseObject Response
 	json.Unmarshal(bodyBytes, &responseObject)
 	fmt.Printf("responseObject %+v\n", responseObject)
+
+	dashboard.Status.DashboardId = responseObject.Id
+	dashboard.Status.DashboardTitle = responseObject.Title
+
+	fmt.Printf("updating dashboard to status %+v\n", dashboard.Status)
+
+	if err := r.Status().Update(ctx, &dashboard); err != nil {
+		log.Error(err, "unable to update dashboard status")
+		return ctrl.Result{}, err
+	}
+	fmt.Println("updated it")
 
 	return ctrl.Result{}, nil
 }

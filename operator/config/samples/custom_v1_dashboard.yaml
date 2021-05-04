@@ -9,12 +9,17 @@ spec:
   instana-base-url: https://test-instana.pink.instana.rocks
   config: |
     {
-      "title": "Managed Dashboard: Tests",
+      "title": "! Managed Dashboard: Test Sample",
       "accessRules": [
         {
           "accessType": "READ_WRITE",
           "relationType": "USER",
           "relatedId": "5ee8a3e8cd70020001ecb007"
+        },
+        {
+          "accessType": "READ_WRITE",
+          "relationType": "API_TOKEN",
+          "relatedId": "ae2cf441-e09a-422e-b563-4df3434f2dbd"
         }
       ],
       "widgets": [

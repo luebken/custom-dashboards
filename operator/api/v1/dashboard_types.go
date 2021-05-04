@@ -36,8 +36,10 @@ type DashboardSpec struct {
 
 // DashboardStatus defines the observed state of Dashboard
 type DashboardStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// The id of the dashboards after it has been created.
+	DashboardId string `json:"dashboard-id"`
+	// The title of the dashboards after it has been created.
+	DashboardTitle string `json:"dashboard-title"`
 }
 
 //+kubebuilder:object:root=true

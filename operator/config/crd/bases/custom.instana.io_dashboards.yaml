@@ -59,6 +59,16 @@ spec:
             type: object
           status:
             description: DashboardStatus defines the observed state of Dashboard
+            properties:
+              dashboard-id:
+                description: The id of the dashboards after it has been created.
+                type: string
+              dashboard-title:
+                description: The title of the dashboards after it has been created.
+                type: string
+            required:
+            - dashboard-id
+            - dashboard-title
             type: object
         type: object
     served: true
