@@ -17,6 +17,7 @@ limitations under the License.
 package controllers
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -68,18 +69,22 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	log.Info("dashboard.Spec.InstanaApiTokenRelationId '" + dashboard.Spec.InstanaApiTokenRelationId + "'")
 	instanaUrl := dashboard.Spec.InstanaBaseUrl + "/api/custom-dashboard"
 	log.Info("dashboard.Spec.InstanaBaseUrl '" + instanaUrl + "'")
+	var jsonStr = []byte(dashboard.Spec.Config)
 
 	type Response struct {
 		Id    string `json:"id"`
 		Title string `json:"title"`
 	}
 
+	fmt.Printf("Creating Dashboard %+v\n", dashboard.Spec.Config)
+
 	client := &http.Client{}
-	req2, err := http.NewRequest("GET", instanaUrl, nil)
+	req2, err := http.NewRequest("POST", instanaUrl, bytes.NewBuffer(jsonStr))
 	if err != nil {
 		fmt.Print(err.Error())
 	}
 	req2.Header.Add("Accept", "application/json")
+	req2.Header.Set("Content-Type", "application/json")
 	req2.Header.Add("authorization", "apiToken "+dashboard.Spec.InstanaApiToken)
 	resp, err := client.Do(req2)
 	if err != nil {
@@ -90,12 +95,11 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	if err != nil {
 		fmt.Print(err.Error())
 	}
-	var responseObjects []Response
-	json.Unmarshal(bodyBytes, &responseObjects)
-	fmt.Printf("Found %v dashboards.\n", len(responseObjects))
-	for _, v := range responseObjects {
-		fmt.Printf("- %+v\n", v)
-	}
+	fmt.Println("response Status:", resp.Status)
+	fmt.Println("response Headers:", resp.Header)
+	var responseObject Response
+	json.Unmarshal(bodyBytes, &responseObject)
+	fmt.Printf("responseObject %+v\n", responseObject)
 
 	return ctrl.Result{}, nil
 }
