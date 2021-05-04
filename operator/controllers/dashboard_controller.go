@@ -20,7 +20,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -39,6 +38,11 @@ type DashboardReconciler struct {
 	Scheme *runtime.Scheme
 }
 
+type InstanaApiResponse struct {
+	Id    string `json:"id"`
+	Title string `json:"title"`
+}
+
 //+kubebuilder:rbac:groups=custom.instana.io,resources=dashboards,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=custom.instana.io,resources=dashboards/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=custom.instana.io,resources=dashboards/finalizers,verbs=update
@@ -54,7 +58,7 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	log.Info("Reconcile called")
 	var dashboard customv1.Dashboard
 	if err := r.Get(ctx, req.NamespacedName, &dashboard); err != nil {
-		log.Error(err, "Unable to fetch Dashboard")
+		log.Info("Unable to fetch Dashboard")
 		// we'll ignore not-found errors, since they can't be fixed by an immediate requeue
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
@@ -66,49 +70,15 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		return ctrl.Result{}, nil
 	}
 
-	instanaUrl := dashboard.Spec.InstanaBaseUrl + "/api/custom-dashboard"
-	var jsonStr = []byte(dashboard.Spec.Config)
+	var apiResponse = callInstanaApi(dashboard, log)
+	dashboard.Status.DashboardId = apiResponse.Id
+	dashboard.Status.DashboardTitle = apiResponse.Title
 
-	type Response struct {
-		Id    string `json:"id"`
-		Title string `json:"title"`
-	}
-
-	//fmt.Printf("Creating Dashboard %+v\n", dashboard.Spec.Config)
-
-	client := &http.Client{}
-	req2, err := http.NewRequest("POST", instanaUrl, bytes.NewBuffer(jsonStr))
-	if err != nil {
-		fmt.Print(err.Error())
-	}
-	req2.Header.Add("Accept", "application/json")
-	req2.Header.Set("Content-Type", "application/json")
-	req2.Header.Add("authorization", "apiToken "+dashboard.Spec.InstanaApiToken)
-	resp, err := client.Do(req2)
-	if err != nil {
-		fmt.Print(err.Error())
-	}
-	defer resp.Body.Close()
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Print(err.Error())
-	}
-	fmt.Println("response Status:", resp.Status)
-	fmt.Printf("response bodyBytes:%+v\n", string(bodyBytes))
-	var responseObject Response
-	json.Unmarshal(bodyBytes, &responseObject)
-	fmt.Printf("responseObject %+v\n", responseObject)
-
-	dashboard.Status.DashboardId = responseObject.Id
-	dashboard.Status.DashboardTitle = responseObject.Title
-
-	fmt.Printf("updating dashboard to status %+v\n", dashboard.Status)
-
+	log.Info("Updating dashboard CRD to status " + dashboard.Status.DashboardId)
 	if err := r.Status().Update(ctx, &dashboard); err != nil {
 		log.Error(err, "unable to update dashboard status")
 		return ctrl.Result{}, err
 	}
-	fmt.Println("updated it")
 
 	return ctrl.Result{}, nil
 }
@@ -118,4 +88,34 @@ func (r *DashboardReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&customv1.Dashboard{}).
 		Complete(r)
+}
+
+func callInstanaApi(dashboard customv1.Dashboard, log logr.Logger) InstanaApiResponse {
+	log.Info("Creating dashboard")
+
+	instanaUrl := dashboard.Spec.InstanaBaseUrl + "/api/custom-dashboard"
+	var jsonStr = []byte(dashboard.Spec.Config)
+	client := &http.Client{}
+	req2, err := http.NewRequest("POST", instanaUrl, bytes.NewBuffer(jsonStr))
+	if err != nil {
+		log.Info(err.Error())
+	}
+	req2.Header.Add("Accept", "application/json")
+	req2.Header.Set("Content-Type", "application/json")
+	req2.Header.Add("authorization", "apiToken "+dashboard.Spec.InstanaApiToken)
+	resp, err := client.Do(req2)
+	if err != nil {
+		log.Info(err.Error())
+	}
+	defer resp.Body.Close()
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Info(err.Error())
+	}
+	log.Info("Response.Status:" + resp.Status)
+	//fmt.Printf("response bodyBytes:%+v\n", string(bodyBytes))
+
+	var r InstanaApiResponse
+	json.Unmarshal(bodyBytes, &r)
+	return r
 }
