@@ -18,6 +18,10 @@ package controllers
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 
 	"github.com/go-logr/logr"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -62,8 +66,36 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	log.Info("dashboard.Spec.InstanaUserId '" + dashboard.Spec.InstanaUserId + "'")
 	log.Info("dashboard.Spec.InstanaApiToken '" + dashboard.Spec.InstanaApiToken + "'")
 	log.Info("dashboard.Spec.InstanaApiTokenRelationId '" + dashboard.Spec.InstanaApiTokenRelationId + "'")
-	log.Info("dashboard.Spec.InstanaBaseUrl '" + dashboard.Spec.InstanaBaseUrl + "'")
-	//log.Info("dashboard.Spec.Config '" + dashboard.Spec.Config + "'")
+	instanaUrl := dashboard.Spec.InstanaBaseUrl + "/api/custom-dashboard"
+	log.Info("dashboard.Spec.InstanaBaseUrl '" + instanaUrl + "'")
+
+	type Response struct {
+		Id    string `json:"id"`
+		Title string `json:"title"`
+	}
+
+	client := &http.Client{}
+	req2, err := http.NewRequest("GET", instanaUrl, nil)
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	req2.Header.Add("Accept", "application/json")
+	req2.Header.Add("authorization", "apiToken "+dashboard.Spec.InstanaApiToken)
+	resp, err := client.Do(req2)
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	defer resp.Body.Close()
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	var responseObjects []Response
+	json.Unmarshal(bodyBytes, &responseObjects)
+	fmt.Printf("Found %v dashboards.\n", len(responseObjects))
+	for _, v := range responseObjects {
+		fmt.Printf("- %+v\n", v)
+	}
 
 	return ctrl.Result{}, nil
 }
