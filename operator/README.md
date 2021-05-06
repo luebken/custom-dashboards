@@ -1,6 +1,6 @@
 # Operator
 
-This folder contains code to automate the creation of custom-dashbaords in
+This folder contains an Operator to automate the creation of custom-dashbaords by leveraging a Kubernetes Custom Resource
 
 ## Testing
 
@@ -16,3 +16,12 @@ This folder contains code to automate the creation of custom-dashbaords in
     kubectl apply -f config/samples/
     make docker-build docker-push
     make deploy
+
+
+## TODOs
+
+[X] Create Dashboard in Instana for a new CRD
+[X] Delete Dashboard in Instana for a deleted CRD
+
+[ ] Update Dashboard in Instana for an update CRD
+[ ] CRUD a CRD for a Dashboard created in Instana
