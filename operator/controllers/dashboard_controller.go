@@ -18,7 +18,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 
 	corev1 "k8s.io/api/core/v1"
 
@@ -74,9 +73,8 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	// Check for deletion
 	finalizerName := "dashboard.custom.instana.io/finalizer"
 	if dashboard.ObjectMeta.DeletionTimestamp != nil {
-		log.Info("Found DeleteTimestamp. De resource")
-		fmt.Printf("DeleteTimestamp: %+v\n", dashboard.ObjectMeta.DeletionTimestamp)
-		fmt.Printf("Finalizers %+v\n", dashboard.ObjectMeta.GetFinalizers())
+		log.Info("Found DeleteTimestamp. ", "DeletionTimestamp", dashboard.ObjectMeta.DeletionTimestamp)
+		log.Info("Found Finalizers. ", "Finalizers", dashboard.ObjectMeta.GetFinalizers())
 		instanaApi.deleteDashboard(dashboard, log)
 		controllerutil.RemoveFinalizer(&dashboard, finalizerName)
 		if err := r.Update(ctx, &dashboard); err != nil {
