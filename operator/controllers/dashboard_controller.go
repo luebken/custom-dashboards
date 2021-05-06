@@ -30,6 +30,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 
 	customv1 "github.com/luebken/custom-dashboards/api/v1"
 )
@@ -78,13 +79,27 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	var dashboard customv1.Dashboard
 	if err := r.Get(ctx, req.NamespacedName, &dashboard); err != nil {
-		log.Info("Unable to load Dashboard. Was it deleted?")
-		// we'll ignore not-found errors, since they can't be fixed by an immediate requeue
+		log.Info("Unable to load Dashboard. Assuming it was deleted. Skipping.")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
-	log.Info("Loadad dashboard resource named '" + dashboard.Name + "'")
+	log.Info("Loadad resource dashboard: '" + dashboard.Name + "' with ResourceVersion: " + dashboard.ObjectMeta.GetResourceVersion() + ".")
+
+	// Check for deletion
+	finalizerName := "dashboard.custom.instana.io/finalizer"
+	if dashboard.ObjectMeta.DeletionTimestamp != nil {
+		log.Info("Found DeleteTimestamp. De resource")
+		fmt.Printf("DeleteTimestamp: %+v\n", dashboard.ObjectMeta.DeletionTimestamp)
+		fmt.Printf("Finalizers %+v\n", dashboard.ObjectMeta.GetFinalizers())
+		deleteDashboardInInstana(dashboard, instanaApiConfig, log)
+		controllerutil.RemoveFinalizer(&dashboard, finalizerName)
+		if err := r.Update(ctx, &dashboard); err != nil {
+			log.Error(err, "unable to update dashboard")
+			return ctrl.Result{}, err
+		}
+		return ctrl.Result{}, nil
+	}
+
 	// name of our custom finalizer
-	//finalizerName := "dashboard.custom.instana.io/finalizer"
 
 	if dashboard.Status.DashboardId != "" {
 		//TODO sync with actual state in instana.
@@ -95,13 +110,19 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	var apiResponse = createDashboardInInstana(dashboard, instanaApiConfig, log)
 	dashboard.Status.DashboardId = apiResponse.Id
 	dashboard.Status.DashboardTitle = apiResponse.Title
-
-	log.Info("Updating Dashboard CRD with Status.DashboardId: " + dashboard.Status.DashboardId)
+	log.Info("Updating Dashboard Status CRD with Status.DashboardId: " + dashboard.Status.DashboardId)
 	if err := r.Status().Update(ctx, &dashboard); err != nil {
 		log.Error(err, "unable to update dashboard status")
 		return ctrl.Result{}, err
 	}
-
+	log.Info("ResourceVersion after status update: " + dashboard.ObjectMeta.GetResourceVersion() + ".")
+	controllerutil.AddFinalizer(&dashboard, finalizerName)
+	log.Info("Updating Dashboard MetaData with finalizer: " + dashboard.ObjectMeta.GetFinalizers()[0])
+	if err := r.Update(ctx, &dashboard); err != nil {
+		log.Error(err, "unable to update dashboard")
+		return ctrl.Result{}, err
+	}
+	log.Info("ResourceVersion after update: " + dashboard.ObjectMeta.GetResourceVersion() + ".")
 	return ctrl.Result{}, nil
 }
 
@@ -134,7 +155,36 @@ func createDashboardInInstana(dashboard customv1.Dashboard, apiConfig InstanaApi
 	if err != nil {
 		log.Info(err.Error())
 	}
-	log.Info("Response.Status:" + resp.Status)
+	log.Info("POST Response.Status:" + resp.Status)
+	//fmt.Printf("response bodyBytes:%+v\n", string(bodyBytes))
+
+	var r InstanaApiResponse
+	json.Unmarshal(bodyBytes, &r)
+	return r
+}
+
+func deleteDashboardInInstana(dashboard customv1.Dashboard, apiConfig InstanaApiConfig, log logr.Logger) InstanaApiResponse {
+	log.Info("Deleting Instana dashboard")
+
+	instanaUrl := apiConfig.BaseUrl + "/api/custom-dashboard/" + dashboard.Status.DashboardId
+	client := &http.Client{}
+	req2, err := http.NewRequest("DELETE", instanaUrl, nil)
+	if err != nil {
+		log.Info(err.Error())
+	}
+	req2.Header.Add("Accept", "application/json")
+	req2.Header.Set("Content-Type", "application/json")
+	req2.Header.Add("authorization", "apiToken "+apiConfig.ApiToken)
+	resp, err := client.Do(req2)
+	if err != nil {
+		log.Info(err.Error())
+	}
+	defer resp.Body.Close()
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Info(err.Error())
+	}
+	log.Info("DELETE Response.Status:" + resp.Status)
 	//fmt.Printf("response bodyBytes:%+v\n", string(bodyBytes))
 
 	var r InstanaApiResponse
