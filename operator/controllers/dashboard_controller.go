@@ -63,8 +63,7 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	}
 	log.Info("Loaded InstanaApiConfig. BaseUrl: " + instanaApi.BaseUrl)
 
-	//getInstanaDashboards(instanaApiConfig, log)
-
+	// Load Dashboard
 	var dashboard customv1.Dashboard
 	if err := r.Get(ctx, req.NamespacedName, &dashboard); err != nil {
 		log.Info("Unable to load Dashboard. Assuming it was deleted. Skipping.")
@@ -86,15 +85,13 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		}
 		return ctrl.Result{}, nil
 	}
-
-	// name of our custom finalizer
-
 	if dashboard.Status.DashboardId != "" {
-		//TODO sync with actual state in instana.
 		log.Info("Dashboard Status has a DashboardId: " + dashboard.Status.DashboardId + ". Skipping it.")
 		return ctrl.Result{}, nil
 	}
 
+	// Create Dashboard in Instana and update dashboard CRD
+	// TODO sync with actual state in Instana.
 	var apiResponse = instanaApi.createDashboard(dashboard, log)
 	dashboard.Status.DashboardId = apiResponse.Id
 	dashboard.Status.DashboardTitle = apiResponse.Title
@@ -103,14 +100,11 @@ func (r *DashboardReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		log.Error(err, "unable to update dashboard status")
 		return ctrl.Result{}, err
 	}
-	log.Info("ResourceVersion after status update: " + dashboard.ObjectMeta.GetResourceVersion() + ".")
 	controllerutil.AddFinalizer(&dashboard, finalizerName)
-	log.Info("Updating Dashboard MetaData with finalizer: " + dashboard.ObjectMeta.GetFinalizers()[0])
 	if err := r.Update(ctx, &dashboard); err != nil {
 		log.Error(err, "unable to update dashboard")
 		return ctrl.Result{}, err
 	}
-	log.Info("ResourceVersion after update: " + dashboard.ObjectMeta.GetResourceVersion() + ".")
 	return ctrl.Result{}, nil
 }
 
